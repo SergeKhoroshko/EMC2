@@ -1,19 +1,83 @@
+<!-- Site header with logo, navigation, burger menu, and social links -->
 <header class="header">
   <div class="container">
-    <nav class="nav">
-      <a class="nav-logo" href="./index.html" aria-label="Site logo">
-        <svg class="nav-logo-icon" width="100" height="30">
-          <use href="{=$icon-path}"></use>
+    <div class="header-inner">
+      <!-- Logo -->
+      <a class="header-logo" href="./index.html" aria-label="Your Energy — home">
+        <svg class="header-logo-icon" width="107" height="32" aria-hidden="true">
+          <use href="./img/sprite.svg#logo"></use>
         </svg>
       </a>
-      <ul class="nav-list">
-        <li class="nav-item">
-          <a class="nav-link {=$highlight-act}" href="./page-2.html">Page 2</a>
+
+      <!-- Desktop navigation -->
+      <nav class="header-nav" aria-label="Main navigation">
+        <ul class="header-nav-list">
+          <li class="header-nav-item">
+            <a class="header-nav-link {=$home-active}" href="./index.html">Home</a>
+          </li>
+          <li class="header-nav-item">
+            <a class="header-nav-link {=$favorites-active}" href="./page-2.html">Favorites</a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Social links (desktop) -->
+      <ul class="header-social" aria-label="Social networks">
+        <li>
+          <a class="header-social-link" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <svg width="20" height="20" aria-hidden="true"><use href="./img/sprite.svg#icon-facebook"></use></svg>
+          </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link {=$highlight-curr}" href="./page-3.html">Page 3</a>
+        <li>
+          <a class="header-social-link" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg width="20" height="20" aria-hidden="true"><use href="./img/sprite.svg#icon-instagram"></use></svg>
+          </a>
+        </li>
+        <li>
+          <a class="header-social-link" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+            <svg width="20" height="20" aria-hidden="true"><use href="./img/sprite.svg#icon-youtube"></use></svg>
+          </a>
         </li>
       </ul>
-    </nav>
+
+      <!-- Burger button (mobile only) -->
+      <button class="burger-btn" id="burgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <svg width="28" height="28" aria-hidden="true"><use href="./img/sprite.svg#icon-menu"></use></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu overlay -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <div class="mobile-menu-inner">
+      <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
+        <svg width="28" height="28" aria-hidden="true"><use href="./img/sprite.svg#icon-close"></use></svg>
+      </button>
+
+      <nav class="mobile-nav" aria-label="Mobile navigation">
+        <ul class="mobile-nav-list">
+          <li><a class="mobile-nav-link {=$home-active}" href="./index.html">Home</a></li>
+          <li><a class="mobile-nav-link {=$favorites-active}" href="./page-2.html">Favorites</a></li>
+        </ul>
+      </nav>
+
+      <ul class="mobile-social" aria-label="Social networks">
+        <li>
+          <a class="header-social-link" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <svg width="24" height="24" aria-hidden="true"><use href="./img/sprite.svg#icon-facebook"></use></svg>
+          </a>
+        </li>
+        <li>
+          <a class="header-social-link" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg width="24" height="24" aria-hidden="true"><use href="./img/sprite.svg#icon-instagram"></use></svg>
+          </a>
+        </li>
+        <li>
+          <a class="header-social-link" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+            <svg width="24" height="24" aria-hidden="true"><use href="./img/sprite.svg#icon-youtube"></use></svg>
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 </header>

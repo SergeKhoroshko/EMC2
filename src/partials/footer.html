@@ -1,15 +1,62 @@
+<!-- Site footer with logo, slogan, social links, and email subscription -->
 <footer class="footer">
   <div class="container">
-    <p class="footer-desc">
-      Made with ✨ by
-      <a
-        class="footer-link"
-        href="https://goit.global/ua/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        GoIT team
-      </a>
-    </p>
+    <div class="footer-top">
+      <!-- Left: logo + tagline -->
+      <div class="footer-brand">
+        <a class="footer-logo" href="./index.html" aria-label="Your Energy — home">
+          <svg width="107" height="32" aria-hidden="true">
+            <use href="./img/sprite.svg#logo"></use>
+          </svg>
+        </a>
+        <p class="footer-slogan">
+          Energize your life,<br />one workout at a time.
+        </p>
+      </div>
+
+      <!-- Right: social links + subscription -->
+      <div class="footer-right">
+        <p class="footer-social-label">Follow us</p>
+        <ul class="footer-social" aria-label="Social networks">
+          <li>
+            <a class="footer-social-link" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <svg width="20" height="20" aria-hidden="true"><use href="./img/sprite.svg#icon-facebook"></use></svg>
+            </a>
+          </li>
+          <li>
+            <a class="footer-social-link" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg width="20" height="20" aria-hidden="true"><use href="./img/sprite.svg#icon-instagram"></use></svg>
+            </a>
+          </li>
+          <li>
+            <a class="footer-social-link" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+              <svg width="20" height="20" aria-hidden="true"><use href="./img/sprite.svg#icon-youtube"></use></svg>
+            </a>
+          </li>
+        </ul>
+
+        <!-- Email subscription form -->
+        <form class="subscribe-form" id="subscribeForm" novalidate>
+          <label class="subscribe-label" for="subscribeEmail">Subscribe for updates</label>
+          <div class="subscribe-row">
+            <input
+              class="subscribe-input"
+              id="subscribeEmail"
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              autocomplete="email"
+              required
+            />
+            <button class="subscribe-btn" type="submit">Subscribe</button>
+          </div>
+          <p class="subscribe-msg" id="subscribeMsg" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; <span id="footerYear"></span> Your Energy. All rights reserved.</p>
+    </div>
   </div>
 </footer>
