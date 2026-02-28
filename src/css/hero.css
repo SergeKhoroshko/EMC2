@@ -1,0 +1,256 @@
+/* ===== Hero section ===== */
+.hero {
+  padding: 40px 0 32px;
+  background-color: var(--color-bg);
+}
+
+.hero-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* ---- Left column ---- */
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.hero-title {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+.hero-title-accent {
+  color: var(--color-accent);
+}
+
+.hero-desc {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  max-width: 420px;
+}
+
+/* ---- Filter tabs ---- */
+.filter-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 4px;
+}
+
+/* ---- Right column: quote ---- */
+.hero-right {
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 24px;
+  background-color: var(--color-surface);
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quote-block {
+  width: 100%;
+}
+
+.quote-loader {
+  display: flex;
+  justify-content: center;
+  padding: 16px 0;
+}
+
+.quote-text {
+  font-size: 15px;
+  font-style: italic;
+  color: var(--color-text);
+  line-height: 1.6;
+  margin-bottom: 12px;
+  position: relative;
+  padding-left: 16px;
+}
+
+.quote-text::before {
+  content: '"';
+  position: absolute;
+  left: 0;
+  top: -4px;
+  font-size: 28px;
+  line-height: 1;
+  color: var(--color-accent);
+}
+
+.quote-author {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-accent);
+  text-align: right;
+}
+
+/* ===== Workout section ===== */
+.workout {
+  padding: 32px 0 48px;
+}
+
+/* Search bar is always visible so users can search without picking a category first.
+   Use :not([hidden]) so the [hidden] attribute still works if we need to hide it entirely. */
+.workout-controls {
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.workout-controls:not([hidden]) {
+  display: flex;
+}
+
+/* Breadcrumb is only shown when inside a category — JS toggles [hidden] on this element. */
+.workout-breadcrumb {
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.workout-breadcrumb:not([hidden]) {
+  display: flex;
+}
+
+/* Ensure [hidden] always wins regardless of other display rules */
+[hidden] {
+  display: none !important;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px 6px 8px;
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.back-btn:hover,
+.back-btn:focus-visible {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.breadcrumb-sep {
+  color: var(--color-border);
+}
+
+.breadcrumb-current {
+  font-weight: 600;
+  color: var(--color-text);
+  text-transform: capitalize;
+}
+
+/* Search form */
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 30px;
+  overflow: hidden;
+  background-color: var(--color-surface);
+  max-width: 400px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 10px 16px;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.search-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.search-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  background: none;
+  border: none;
+  border-left: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.search-btn:hover,
+.search-btn:focus-visible {
+  color: var(--color-accent);
+}
+
+/* Empty state */
+.cards-empty {
+  padding: 48px 0;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 15px;
+}
+
+/* ===== Tablet: 768px+ ===== */
+@media only screen and (min-width: 768px) {
+  .hero {
+    padding: 48px 0 40px;
+  }
+
+  .hero-title {
+    font-size: 44px;
+  }
+
+  .workout-controls {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+/* ===== Desktop: 1200px+ ===== */
+@media only screen and (min-width: 1200px) {
+  .hero {
+    padding: 56px 0 48px;
+  }
+
+  .hero-inner {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 48px;
+  }
+
+  .hero-left {
+    flex: 1 1 50%;
+  }
+
+  .hero-right {
+    flex: 0 0 360px;
+    align-self: flex-start;
+    position: sticky;
+    top: 90px;
+  }
+
+  .hero-title {
+    font-size: 56px;
+  }
+}

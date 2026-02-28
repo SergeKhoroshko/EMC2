@@ -1,9 +1,10 @@
 /* Styles for Mobile devices */
 .container {
-  min-width: 320px;
-  max-width: 375px;
+  width: 100%;
+  max-width: 767px;
   margin: 0 auto;
   padding: 0 16px;
+  box-sizing: border-box;
 }
 /* Styles for Tablet devices */
 @media only screen and (min-width: 768px) {

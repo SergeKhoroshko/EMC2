@@ -1,0 +1,44 @@
+/* ===== Favorites page ===== */
+.favorites-section {
+  padding: 40px 0 56px;
+}
+
+.favorites-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 32px;
+}
+
+.favorites-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 240px;
+}
+
+.favorites-empty-text {
+  font-size: 16px;
+  color: var(--color-text-muted);
+  text-align: center;
+  line-height: 1.8;
+}
+
+.favorites-empty-link {
+  color: var(--color-accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.favorites-empty-link:hover {
+  color: var(--color-accent-hover);
+}
+
+/* ===== Tablet: 768px+ ===== */
+@media only screen and (min-width: 768px) {
+  .favorites-title {
+    font-size: 36px;
+  }
+}
