@@ -168,14 +168,21 @@ async function loadExercises() {
 /** Render category card list items. */
 function renderCategoryCards(results) {
   cardsEmpty.hidden = true;
-  cardsGrid.innerHTML = results.map(item => `
+  cardsGrid.innerHTML = results.map((item, idx) => `
     <li class="category-card" tabindex="0"
         data-name="${escHtml(item.name)}"
         data-filter="${escHtml(item.filter)}"
         role="button"
         aria-label="Filter by ${escHtml(item.name)}">
       ${item.imgURL
-        ? `<img class="category-card-img" src="${escHtml(item.imgURL)}" alt="${escHtml(item.name)}" loading="lazy" />`
+        // width/height attributes give the browser an aspect-ratio hint before CSS loads (prevents CLS).
+        // The first card is the LCP candidate: skip lazy-loading and boost fetch priority.
+        ? `<img class="category-card-img"
+               src="${escHtml(item.imgURL)}"
+               alt="${escHtml(item.name)}"
+               width="640" height="480"
+               sizes="(min-width: 1200px) 368px, (min-width: 768px) calc(50vw - 30px), calc(100vw - 32px)"
+               ${idx === 0 ? 'fetchpriority="high"' : 'loading="lazy"'} />`
         : `<div class="category-card-img" style="background:var(--color-surface-2)"></div>`
       }
       <div class="category-card-overlay">
