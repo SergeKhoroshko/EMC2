@@ -3,6 +3,14 @@
   position: sticky;
   top: 0;
   z-index: 100;
+  /* Keep header dark regardless of page theme */
+  --color-bg: #040404;
+  --color-surface: #111111;
+  --color-text: #ffffff;
+  --color-text-muted: #a4a4a4;
+  --color-border: #2e2e2e;
+  /* Logo: make the dark pentagon path (#010101) white on the dark header */
+  --color2: #ffffff;
   background-color: var(--color-bg);
   border-bottom: 1px solid var(--color-border);
   padding: 16px 0;
