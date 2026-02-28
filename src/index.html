@@ -62,7 +62,7 @@
             <div class="hero-right">
               <div class="quote-block" id="quoteBlock" aria-live="polite">
                 <!-- Populated by quote.js -->
-                <div class="quote-loader" id="quoteLoader" aria-label="Loading quote…">
+                <div class="quote-loader" id="quoteLoader" role="status" aria-label="Loading quote…">
                   <span class="spinner"></span>
                 </div>
               </div>
@@ -101,14 +101,17 @@
             </form>
           </div>
 
-          <!-- Cards grid: renders category cards OR exercise cards -->
-          <ul class="cards-grid" id="cardsGrid" aria-live="polite" aria-label="Cards"></ul>
+          <!-- Cards grid: renders category cards OR exercise cards.
+               role=tabpanel corresponds to the role=tab filter buttons above. -->
+          <div role="tabpanel" id="cardsPanel" aria-label="Exercise categories">
+            <ul class="cards-grid" id="cardsGrid" aria-live="polite" aria-label="Cards"></ul>
 
-          <!-- Empty / error state -->
-          <p class="cards-empty" id="cardsEmpty" hidden>Nothing found. Try a different search term.</p>
+            <!-- Empty / error state -->
+            <p class="cards-empty" id="cardsEmpty" hidden>Nothing found. Try a different search term.</p>
 
-          <!-- Pagination controls -->
-          <nav class="pagination" id="pagination" aria-label="Pages" hidden></nav>
+            <!-- Pagination controls -->
+            <nav class="pagination" id="pagination" aria-label="Pages" hidden></nav>
+          </div>
         </div>
       </section>
     </main>
@@ -124,13 +127,13 @@
 
         <!-- GIF / image -->
         <div class="ex-modal-media">
-          <img class="ex-modal-gif" id="exModalGif" src="" alt="" loading="lazy" />
+          <img class="ex-modal-gif" id="exModalGif" alt="" loading="lazy" />
         </div>
 
         <div class="ex-modal-body">
           <!-- Name + rating row -->
           <div class="ex-modal-header">
-            <h2 class="ex-modal-title" id="exModalTitle"></h2>
+            <h2 class="ex-modal-title" id="exModalTitle" aria-label="Exercise name"></h2>
             <div class="ex-modal-rating-row">
               <span class="ex-modal-rating-val" id="exModalRating"></span>
               <svg class="ex-modal-star" width="16" height="16" aria-hidden="true"><use href="./img/sprite.svg#icon-star"></use></svg>
