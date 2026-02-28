@@ -4,14 +4,21 @@ on:
   push:
     branches: [main]
 
-# Required so the deploy action can push to the gh-pages branch
+# Permissions required by actions/deploy-pages
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+# Cancel any in-progress deployment when a new push arrives
+concurrency:
+  group: pages
+  cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  # ── 1. Build ──────────────────────────────────────────────────────────────
+  build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -22,13 +29,26 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Install and build
-        run: |
-          npm install
-          npm run build
+      - name: Install dependencies
+        run: npm install
 
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Build
+        run: npm run build
+
+      # Upload the dist/ folder as the Pages artifact for the deploy job
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          branch: gh-pages
-          folder: dist
+          path: dist
+
+  # ── 2. Deploy ─────────────────────────────────────────────────────────────
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
