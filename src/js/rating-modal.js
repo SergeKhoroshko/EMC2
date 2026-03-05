@@ -35,15 +35,18 @@ export function openRatingModal(exerciseId) {
 
 // ─── Internals ────────────────────────────────────────────────────────────────
 
-/** Make the 5 star buttons interactive (highlight on hover/select). */
+/** Make the 5 star buttons interactive (highlight on hover/select, update score). */
 function initStarInteraction() {
   const labels = [...document.querySelectorAll('#ratingStars .star-label')];
 
   labels.forEach((label, idx) => {
     const input = label.querySelector('.star-input');
 
-    // On radio change (click), permanently highlight stars 1 through idx
-    input?.addEventListener('change', () => highlightStars(idx, labels));
+    // On radio change (click), permanently highlight stars and update score
+    input?.addEventListener('change', () => {
+      highlightStars(idx, labels);
+      updateScore(idx + 1);
+    });
 
     // On hover, preview highlight
     label.addEventListener('mouseenter', () => highlightStars(idx, labels));
@@ -54,6 +57,12 @@ function initStarInteraction() {
       highlightStars(checkedIdx, labels);
     });
   });
+}
+
+/** Update the numeric score display in the rating modal header. */
+function updateScore(value) {
+  const scoreEl = document.getElementById('ratingModalScore');
+  if (scoreEl) scoreEl.textContent = `${value}.0`;
 }
 
 /**
@@ -97,7 +106,7 @@ async function handleSubmit(e) {
     review: form.review?.value?.trim() || undefined,
   };
 
-  const submitBtn = form.querySelector('.rating-submit');
+  const submitBtn = form.querySelector('.rating-submit-btn');
   submitBtn.disabled = true;
   submitBtn.textContent = 'Sending…';
 

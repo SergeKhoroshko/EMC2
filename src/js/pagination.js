@@ -39,7 +39,7 @@ function buildPaginationHTML(current, total) {
   // Previous arrow
   html += `<button class="pagination-btn" data-page="${current - 1}"
     aria-label="Previous page" ${current === 1 ? 'disabled' : ''}>
-    <svg width="20" height="20" aria-hidden="true"><use href="./img/sprite.svg#icon-arrow-left"></use></svg>
+    <svg width="20" height="20" aria-hidden="true"><use href="./img/sprite.svg#icon-chevron-left"></use></svg>
   </button>`;
 
   // Page numbers with optional ellipsis
@@ -57,7 +57,7 @@ function buildPaginationHTML(current, total) {
   // Next arrow
   html += `<button class="pagination-btn" data-page="${current + 1}"
     aria-label="Next page" ${current === total ? 'disabled' : ''}>
-    <svg width="20" height="20" aria-hidden="true"><use href="./img/sprite.svg#icon-arrow-right"></use></svg>
+    <svg width="20" height="20" aria-hidden="true"><use href="./img/sprite.svg#icon-chevron-right"></use></svg>
   </button>`;
 
   return html;

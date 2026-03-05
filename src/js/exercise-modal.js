@@ -48,13 +48,21 @@ export function openExerciseModal(exercise) {
 /** Fill all modal fields with data from the exercise object. */
 function populateModal(ex) {
   setText('exModalTitle', ex.name);
-  setText('exModalRating', ex.rating?.toFixed(1) ?? '—');
   setText('exModalBodyPart', ex.bodyPart ?? '—');
   setText('exModalTarget', ex.target ?? '—');
   setText('exModalEquipment', ex.equipment ?? '—');
   setText('exModalPopularity', ex.popularity ?? '—');
   setText('exModalCalories', ex.burnedCalories ? `${ex.burnedCalories} kcal / ${ex.time} min` : '—');
   setText('exModalDesc', ex.description ?? '');
+
+  // Rating value + inline star characters
+  const rating = ex.rating ?? 0;
+  setText('exModalRating', rating.toFixed(1));
+  const starsEl = document.getElementById('exModalStars');
+  if (starsEl) {
+    const filled = Math.round(rating);
+    starsEl.textContent = '★'.repeat(filled) + '☆'.repeat(5 - filled);
+  }
 
   const gif = document.getElementById('exModalGif');
   if (gif) {
@@ -65,17 +73,19 @@ function populateModal(ex) {
   updateFavButton(ex._id);
 }
 
-/** Update the favorites button label and icon based on current state. */
+/** Update the favorites button label, icon, and style based on current state. */
 function updateFavButton(id) {
   const btn = document.getElementById('exModalFavBtn');
   if (!btn) return;
   const inFav = isFavorite(id);
   if (inFav) {
+    btn.className = 'btn btn-remove';
     btn.innerHTML = `Remove from favorites
-      <svg width="18" height="18" aria-hidden="true"><use href="./img/sprite.svg#icon-trash"></use></svg>`;
+      <svg width="16" height="16" aria-hidden="true"><use href="./img/sprite.svg#icon-trash"></use></svg>`;
   } else {
+    btn.className = 'btn btn-favorite';
     btn.innerHTML = `Add to favorites
-      <svg width="18" height="18" aria-hidden="true"><use href="./img/sprite.svg#icon-heart"></use></svg>`;
+      <svg width="16" height="16" aria-hidden="true"><use href="./img/sprite.svg#icon-heart"></use></svg>`;
   }
 }
 

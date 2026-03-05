@@ -1,27 +1,21 @@
-<!-- Site header with logo, navigation, burger menu, and social links -->
+<!-- Site header: text logo, dark pill nav, social icons, mobile burger -->
 <header class="header">
   <div class="container">
     <div class="header-inner">
-      <!-- Logo -->
+      <!-- Text logo -->
       <a class="header-logo" href="./index.html" aria-label="Your Energy — home">
-        <svg class="header-logo-icon" width="107" height="32" aria-hidden="true">
-          <use href="./img/sprite.svg#logo"></use>
-        </svg>
+        <span class="header-logo-text">Your Energy</span>
       </a>
 
-      <!-- Desktop navigation -->
+      <!-- Desktop navigation: dark pill with white active pill inside -->
       <nav class="header-nav" aria-label="Main navigation">
-        <ul class="header-nav-list">
-          <li class="header-nav-item">
-            <a class="header-nav-link {=$home-active}" href="./index.html">Home</a>
-          </li>
-          <li class="header-nav-item">
-            <a class="header-nav-link {=$favorites-active}" href="./page-2.html">Favorites</a>
-          </li>
-        </ul>
+        <div class="header-nav-pill">
+          <a class="header-nav-link {=$home-active}" href="./index.html">Home</a>
+          <a class="header-nav-link {=$favorites-active}" href="./page-2.html">Favorites</a>
+        </div>
       </nav>
 
-      <!-- Social links (desktop) -->
+      <!-- Social links (desktop) — simple icons, no background -->
       <ul class="header-social" aria-label="Social networks">
         <li>
           <a class="header-social-link" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
@@ -40,20 +34,22 @@
         </li>
       </ul>
 
-      <!-- Burger button (mobile only) -->
+      <!-- Burger button (mobile only) — shows hamburger ≡ symbol -->
       <button class="burger-btn" id="burgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-        <svg width="28" height="28" aria-hidden="true"><use href="./img/sprite.svg#icon-menu"></use></svg>
+        &#9776;
       </button>
     </div>
   </div>
 
-  <!-- Mobile menu overlay -->
+  <!-- Mobile menu — fullscreen dark overlay -->
   <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
     <div class="mobile-menu-inner">
+      <!-- X close button top right -->
       <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
-        <svg width="28" height="28" aria-hidden="true"><use href="./img/sprite.svg#icon-close"></use></svg>
+        &times;
       </button>
 
+      <!-- Links centered vertically -->
       <nav class="mobile-nav" aria-label="Mobile navigation">
         <ul class="mobile-nav-list">
           <li><a class="mobile-nav-link {=$home-active}" href="./index.html">Home</a></li>
@@ -61,19 +57,20 @@
         </ul>
       </nav>
 
+      <!-- Social icons bottom center -->
       <ul class="mobile-social" aria-label="Social networks">
         <li>
-          <a class="header-social-link" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+          <a class="mobile-social-link" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
             <svg width="24" height="24" aria-hidden="true"><use href="./img/sprite.svg#icon-facebook"></use></svg>
           </a>
         </li>
         <li>
-          <a class="header-social-link" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <a class="mobile-social-link" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
             <svg width="24" height="24" aria-hidden="true"><use href="./img/sprite.svg#icon-instagram"></use></svg>
           </a>
         </li>
         <li>
-          <a class="header-social-link" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+          <a class="mobile-social-link" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
             <svg width="24" height="24" aria-hidden="true"><use href="./img/sprite.svg#icon-youtube"></use></svg>
           </a>
         </li>

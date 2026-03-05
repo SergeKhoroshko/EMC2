@@ -3,17 +3,29 @@ import { fetchQuote } from './api.js';
 import { getCachedQuote, cacheQuote } from './storage.js';
 
 /**
- * Render quote data into #quoteBlock.
+ * Render quote data into #quoteBlock (sidebar card).
+ * Keeps the icon and label already in the HTML, appends quote text + author.
  * @param {{ author: string, quote: string }} data
  */
 function renderQuote({ author, quote }) {
+  const loader = document.getElementById('quoteLoader');
   const block = document.getElementById('quoteBlock');
   if (!block) return;
 
-  block.innerHTML = `
-    <p class="quote-text">${escapeHtml(quote)}</p>
-    <p class="quote-author">— ${escapeHtml(author)}</p>
-  `;
+  // Hide the spinner
+  if (loader) loader.remove();
+
+  // Append quote text and author without replacing the icon/label
+  const textEl = document.createElement('p');
+  textEl.className = 'quote-text';
+  textEl.textContent = quote;
+
+  const authorEl = document.createElement('p');
+  authorEl.className = 'quote-author';
+  authorEl.textContent = `— ${author}`;
+
+  block.appendChild(textEl);
+  block.appendChild(authorEl);
 }
 
 /** Load and display the daily quote (with localStorage cache). */
@@ -30,20 +42,9 @@ export async function initQuote() {
     renderQuote(data);
   } catch (err) {
     console.error('Failed to load quote:', err);
-    const block = document.getElementById('quoteBlock');
-    if (block) {
-      block.innerHTML = `<p class="quote-text" style="font-style:normal;color:var(--color-text-muted)">
-        "The secret of getting ahead is getting started."</p>
-        <p class="quote-author">— Mark Twain</p>`;
-    }
+    renderQuote({
+      quote: 'The secret of getting ahead is getting started.',
+      author: 'Mark Twain',
+    });
   }
-}
-
-/** Simple HTML escape to prevent XSS from API data. */
-function escapeHtml(str) {
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
 }

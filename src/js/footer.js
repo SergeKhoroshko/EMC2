@@ -53,6 +53,6 @@ async function handleSubscribe(e) {
     }
   } finally {
     btn.disabled = false;
-    btn.textContent = 'Subscribe';
+    btn.textContent = 'Send';
   }
 }

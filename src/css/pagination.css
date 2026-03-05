@@ -3,47 +3,54 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 4px;
   margin-top: 32px;
-  flex-wrap: wrap;
 }
 
 .pagination-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 38px;
-  height: 38px;
-  padding: 0 4px;
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  background: none;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid rgba(36, 36, 36, 0.1);
+  border-radius: 50%;
+  background: transparent;
+  font-family: var(--font-family);
   font-size: 14px;
-  font-weight: 500;
-  color: var(--color-text-muted);
+  font-weight: 400;
+  color: #d5d5d5;
   cursor: pointer;
-  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+  transition: border-color 0.2s ease, color 0.2s ease;
 }
 
 .pagination-btn:hover:not(:disabled),
 .pagination-btn:focus-visible:not(:disabled) {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
+  border-color: #242424;
+  color: #242424;
 }
 
+/* Active page */
 .pagination-btn.active {
-  background-color: var(--color-accent);
-  border-color: var(--color-accent);
-  color: #ffffff;
+  border-color: #242424;
+  color: #242424;
 }
 
+/* Arrow buttons */
 .pagination-btn:disabled {
-  opacity: 0.3;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
+/* Ellipsis dots */
 .pagination-ellipsis {
-  padding: 0 4px;
-  color: var(--color-text-muted);
-  line-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  font-size: 14px;
+  color: #d5d5d5;
+  cursor: default;
 }

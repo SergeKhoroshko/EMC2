@@ -1,21 +1,17 @@
 /* ===== Modal backdrop =====
-   IMPORTANT: base rule has NO display property so the HTML [hidden] attribute
-   can apply its native "display: none".  We only add display:flex on :not([hidden]).
-   Without this split, "display:flex" would override [hidden] and both modals
-   would be permanently visible on page load. */
+   Base has NO display so [hidden] attribute takes effect.
+   :not([hidden]) adds display:flex for visible state. */
 .modal-backdrop {
   position: fixed;
   inset: 0;
   z-index: 300;
   background-color: var(--color-overlay);
-  /* NO display here — let [hidden] keep it hidden */
   align-items: center;
   justify-content: center;
   padding: 16px;
   overflow-y: auto;
 }
 
-/* Only shown when the [hidden] attribute is removed by JS openModal() */
 .modal-backdrop:not([hidden]) {
   display: flex;
   animation: fade-in 0.2s ease;
@@ -26,16 +22,14 @@
   to { opacity: 1; }
 }
 
-/* Prevent body scroll when modal is open */
 body.modal-open {
   overflow: hidden;
 }
 
-/* ===== Base modal box ===== */
+/* ===== Base modal box — dark theme ===== */
 .modal {
   position: relative;
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
+  background-color: var(--color-dark);
   border-radius: 16px;
   width: 100%;
   max-width: 520px;
@@ -43,7 +37,7 @@ body.modal-open {
   overflow-y: auto;
   animation: slide-up 0.25s ease;
   scrollbar-width: thin;
-  scrollbar-color: var(--color-border) transparent;
+  scrollbar-color: rgba(255,255,255,0.1) transparent;
 }
 
 @keyframes slide-up {
@@ -51,7 +45,7 @@ body.modal-open {
   to { transform: translateY(0); opacity: 1; }
 }
 
-/* Close button — shared */
+/* Close button — top right, X icon */
 .modal-close-btn {
   position: absolute;
   top: 16px;
@@ -59,13 +53,13 @@ body.modal-open {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   padding: 0;
   background: none;
-  border: 1px solid var(--color-border);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.6);
   cursor: pointer;
   transition: color 0.2s ease, border-color 0.2s ease;
   z-index: 1;
@@ -73,21 +67,27 @@ body.modal-open {
 
 .modal-close-btn:hover,
 .modal-close-btn:focus-visible {
-  color: var(--color-text);
-  border-color: var(--color-text);
+  color: #ffffff;
+  border-color: #ffffff;
 }
 
-/* ===== Exercise detail modal ===== */
+/* ===== Exercise detail modal — dark #1e1e1e ===== */
 .exercise-modal {
-  max-width: 600px;
+  max-width: 680px;
+}
+
+/* Desktop: side-by-side image + body */
+.ex-modal-inner {
+  display: flex;
+  flex-direction: column;
 }
 
 .ex-modal-media {
   width: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  border-radius: 12px 12px 0 0;
-  background-color: var(--color-surface-2);
+  border-radius: 16px 16px 0 0;
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 .ex-modal-gif {
@@ -101,9 +101,10 @@ body.modal-open {
   padding: 20px 24px 28px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
+/* Name + stars row */
 .ex-modal-header {
   display: flex;
   align-items: flex-start;
@@ -113,45 +114,49 @@ body.modal-open {
 }
 
 .ex-modal-title {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
   line-height: 1.3;
-  color: var(--color-text);
+  color: #ffffff;
   text-transform: capitalize;
 }
 
 .ex-modal-rating-row {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   flex-shrink: 0;
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
 .ex-modal-rating-val {
   font-size: 16px;
   font-weight: 700;
-  color: var(--color-text);
+  color: #ffffff;
 }
 
-.ex-modal-star {
+/* Inline star characters rendered by JS */
+.ex-modal-stars {
   color: #f5c518;
+  font-size: 14px;
+  letter-spacing: 1px;
 }
 
-/* Metadata grid */
+/* 2×2 info grid */
 .ex-modal-meta {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px 16px;
-  background-color: var(--color-surface-2);
-  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
   padding: 16px;
+  list-style: none;
 }
 
 .ex-modal-meta-item {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 4px;
 }
 
 .ex-modal-meta-label {
@@ -159,22 +164,34 @@ body.modal-open {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.45);
 }
 
 .ex-modal-meta-val {
   font-size: 14px;
   font-weight: 600;
-  color: var(--color-text);
+  color: #ffffff;
   text-transform: capitalize;
 }
 
+/* Burned calories — single full-width row */
+.ex-modal-calories-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background-color: rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+}
+
+/* Description */
 .ex-modal-desc {
   font-size: 14px;
   line-height: 1.65;
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.65);
 }
 
+/* Action buttons */
 .ex-modal-actions {
   display: flex;
   flex-wrap: wrap;
@@ -182,69 +199,124 @@ body.modal-open {
   padding-top: 4px;
 }
 
-/* ===== Rating modal ===== */
+/* Add to favorites — light pill */
+.btn-favorite {
+  background: #f4f4f4;
+  color: #242424;
+  border: none;
+}
+
+.btn-favorite:hover,
+.btn-favorite:focus-visible {
+  background: #e0e0e0;
+}
+
+/* Give a rating — dark pill */
+.btn-rating {
+  background: #242424;
+  color: #f4f4f4;
+  border: 1px solid #f4f4f4;
+}
+
+.btn-rating:hover,
+.btn-rating:focus-visible {
+  background: #3a3a3a;
+}
+
+/* Remove from favorites — outline pill */
+.btn-remove {
+  background: transparent;
+  color: #242424;
+  border: 1px solid #242424;
+}
+
+.btn-remove:hover,
+.btn-remove:focus-visible {
+  background: #242424;
+  color: #f4f4f4;
+}
+
+/* ===== Rating modal — dark #2c2c2c ===== */
 .rating-modal {
-  max-width: 420px;
+  max-width: 380px;
+  background-color: var(--color-dark-2);
+}
+
+/* Rating header: "Rating" text + score + stars row */
+.rating-modal-header {
+  padding: 24px 24px 0;
 }
 
 .rating-modal-title {
   font-size: 20px;
   font-weight: 700;
-  color: var(--color-text);
-  padding: 24px 24px 0;
+  color: #ffffff;
+  margin-bottom: 12px;
 }
 
-.rating-form {
-  padding: 20px 24px 28px;
+.rating-modal-stars-row {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
 }
 
-/* Star rating row — fully JS-driven highlighting */
+.rating-modal-score {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* Star radio buttons */
 .rating-stars {
   display: flex;
   flex-direction: row;
-  gap: 8px;
+  gap: 4px;
   border: none;
   padding: 0;
-  margin: 4px 0 8px;
+  margin: 0;
 }
 
 .star-label {
   cursor: pointer;
-  color: var(--color-border);
+  color: rgba(255, 255, 255, 0.2);
   transition: color 0.15s ease;
   line-height: 1;
 }
 
-/* JS adds/removes .lit class on each label */
+/* JS adds/removes .lit class */
 .star-label.lit {
   color: #f5c518;
 }
 
-/* Form fields */
-.rating-field-label {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--color-text-muted);
+/* Form */
+.rating-form {
+  padding: 16px 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
+/* Dark pill inputs */
 .rating-input {
   width: 100%;
-  padding: 10px 14px;
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  background-color: var(--color-surface-2);
+  padding: 12px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 30px;
+  background-color: rgba(255, 255, 255, 0.06);
   font-size: 14px;
-  color: var(--color-text);
+  color: #ffffff;
   outline: none;
   transition: border-color 0.2s ease;
   box-sizing: border-box;
 }
 
+.rating-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
 .rating-input:focus {
-  border-color: var(--color-accent);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 .rating-input.invalid {
@@ -254,6 +326,8 @@ body.modal-open {
 .rating-textarea {
   resize: vertical;
   font-family: inherit;
+  border-radius: 16px;
+  min-height: 80px;
 }
 
 .rating-error {
@@ -261,16 +335,43 @@ body.modal-open {
   color: #e55;
   min-height: 16px;
   margin-top: -4px;
+  padding: 0 4px;
 }
 
-.rating-submit {
-  margin-top: 8px;
-  align-self: flex-end;
+/* Send button — white, full width, pill */
+.rating-submit-btn {
+  width: 100%;
+  padding: 14px 24px;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-dark);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 4px;
 }
 
-/* ===== Tablet: 768px+ ===== */
+.rating-submit-btn:hover,
+.rating-submit-btn:focus-visible {
+  background-color: #f0f0f0;
+}
+
+/* ===== Desktop: 1200px+ ===== */
 @media only screen and (min-width: 768px) {
-  .ex-modal-meta {
-    grid-template-columns: repeat(3, 1fr);
+  .ex-modal-inner {
+    flex-direction: row;
+  }
+
+  .ex-modal-media {
+    flex: 0 0 260px;
+    aspect-ratio: unset;
+    border-radius: 16px 0 0 16px;
+    min-height: 300px;
+  }
+
+  .ex-modal-body {
+    flex: 1;
   }
 }

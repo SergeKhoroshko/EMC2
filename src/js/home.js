@@ -19,11 +19,11 @@ const state = {
 const cardsGrid = document.getElementById('cardsGrid');
 const cardsEmpty = document.getElementById('cardsEmpty');
 const workoutControls = document.getElementById('workoutControls');
-const workoutBreadcrumb = document.querySelector('.workout-breadcrumb');
+const workoutBreadcrumb = document.getElementById('workoutBreadcrumb');
 const breadcrumbCurrent = document.getElementById('breadcrumbCurrent');
-const backBtn = document.getElementById('backBtn');
 const searchForm = document.getElementById('searchForm');
 const searchInput = document.getElementById('searchInput');
+const workoutHeader = document.getElementById('workoutHeader');
 
 // ─── Public init ──────────────────────────────────────────────────────────────
 
@@ -32,10 +32,7 @@ export async function initHome() {
   // Filter tab clicks
   document.getElementById('filterTabs')?.addEventListener('click', onFilterTabClick);
 
-  // Back button
-  backBtn?.addEventListener('click', showCategories);
-
-  // Search form — works with or without a selected category
+  // Search form
   searchForm?.addEventListener('submit', e => {
     e.preventDefault();
     const keyword = searchInput?.value.trim() ?? '';
@@ -43,14 +40,11 @@ export async function initHome() {
     state.exercisePage = 1;
 
     if (!keyword) {
-      // Empty search: return to the category grid
       showCategories();
       return;
     }
 
     if (!state.category) {
-      // No category selected: show controls but hide the breadcrumb row,
-      // then fetch exercises by keyword only (no filter param sent)
       workoutControls.hidden = false;
       showBreadcrumb(false);
     }
@@ -62,13 +56,12 @@ export async function initHome() {
   await loadCategories();
 }
 
-// ─── Event handlers ──────────────────────────────────────────────────────────
+// ─── Event handlers ───────────────────────────────────────────────────────────
 
 function onFilterTabClick(e) {
   const tab = e.target.closest('.filter-tab');
   if (!tab) return;
 
-  // Update active tab
   document.querySelectorAll('.filter-tab').forEach(t => {
     t.classList.remove('active');
     t.setAttribute('aria-selected', 'false');
@@ -84,13 +77,13 @@ function onFilterTabClick(e) {
   showCategories();
 }
 
-// ─── Loaders ─────────────────────────────────────────────────────────────────
+// ─── Loaders ──────────────────────────────────────────────────────────────────
 
 /** Load and render category cards for the selected filter. */
 async function loadCategories() {
-  // Keep workoutControls visible so the search bar stays reachable from the categories view
   showBreadcrumb(false);
   showLoader();
+  setGridMode('categories');
 
   try {
     const limit = getGridLimit();
@@ -117,27 +110,24 @@ async function loadCategories() {
   }
 }
 
-/** Load and render exercise cards for the current state (category and/or keyword). */
+/** Load and render exercise cards for the current state. */
 async function loadExercises() {
   showLoader();
+  setGridMode('exercises');
 
   try {
     const limit = getGridLimit();
-
-    // Base params: keyword + pagination (no filter required for keyword-only search)
     const params = {
       keyword: state.keyword || undefined,
       page: state.exercisePage,
       limit,
     };
 
-    // Only add the category filter when a category is actually selected
     if (state.category) {
       params[filterToParam(state.filter)] = state.category.name;
     }
 
     const data = await fetchExercises(params);
-
     state.totalExercisePages = data.totalPages;
 
     if (data.results.length === 0) {
@@ -163,7 +153,7 @@ async function loadExercises() {
   }
 }
 
-// ─── Renderers ───────────────────────────────────────────────────────────────
+// ─── Renderers ────────────────────────────────────────────────────────────────
 
 /** Render category card list items. */
 function renderCategoryCards(results) {
@@ -175,13 +165,11 @@ function renderCategoryCards(results) {
         role="button"
         aria-label="Filter by ${escHtml(item.name)}">
       ${item.imgURL
-        // width/height attributes give the browser an aspect-ratio hint before CSS loads (prevents CLS).
-        // The first card is the LCP candidate: skip lazy-loading and boost fetch priority.
         ? `<img class="category-card-img"
                src="${escHtml(item.imgURL)}"
                alt="${escHtml(item.name)}"
                width="640" height="480"
-               sizes="(min-width: 1200px) 368px, (min-width: 768px) calc(50vw - 30px), calc(100vw - 32px)"
+               sizes="(min-width: 1200px) 280px, (min-width: 768px) calc(50vw - 30px), calc(100vw - 32px)"
                ${idx === 0 ? 'fetchpriority="high"' : 'loading="lazy"'} />`
         : `<div class="category-card-img" style="background:var(--color-surface-2)"></div>`
       }
@@ -192,7 +180,6 @@ function renderCategoryCards(results) {
     </li>
   `).join('');
 
-  // Click / keyboard on category cards
   cardsGrid.querySelectorAll('.category-card').forEach(card => {
     const activate = () => {
       state.category = { filter: card.dataset.filter, name: card.dataset.name };
@@ -206,53 +193,46 @@ function renderCategoryCards(results) {
   });
 }
 
-/** Render exercise card list items. */
+/** Render exercise card list items — new Figma layout. */
 function renderExerciseCards(exercises) {
   cardsGrid.innerHTML = exercises.map(ex => `
     <li class="exercise-card">
+      <!-- Row 1: WORKOUT pill + rating LEFT, Start → RIGHT -->
       <div class="exercise-card-top">
-        <span class="exercise-card-badge">Workout</span>
-        <span class="exercise-card-rating">
-          ${Number(ex.rating).toFixed(1)}
-          <svg class="exercise-card-star" width="14" height="14" aria-hidden="true">
-            <use href="./img/sprite.svg#icon-star"></use>
-          </svg>
-        </span>
-      </div>
-      <h3 class="exercise-card-name">${escHtml(ex.name)}</h3>
-      <div class="exercise-card-meta">
-        <div class="exercise-card-meta-item">
-          <span class="exercise-card-meta-label">Body part</span>
-          <span class="exercise-card-meta-val">${escHtml(ex.bodyPart ?? '—')}</span>
-        </div>
-        <div class="exercise-card-meta-item">
-          <span class="exercise-card-meta-label">Target</span>
-          <span class="exercise-card-meta-val">${escHtml(ex.target ?? '—')}</span>
-        </div>
-      </div>
-      <div class="exercise-card-bottom">
-        <div class="exercise-card-stats">
-          <span class="exercise-card-stat">
-            <svg width="14" height="14" aria-hidden="true"><use href="./img/sprite.svg#icon-fire"></use></svg>
-            ${ex.burnedCalories ?? 0} kcal
-          </span>
-          <span class="exercise-card-stat">
-            <svg width="14" height="14" aria-hidden="true"><use href="./img/sprite.svg#icon-clock"></use></svg>
-            ${ex.time ?? 0} min
+        <div class="exercise-card-top-left">
+          <span class="exercise-card-badge">Workout</span>
+          <span class="exercise-card-rating">
+            ${Number(ex.rating).toFixed(1)}
+            <svg class="exercise-card-star" width="13" height="13" aria-hidden="true">
+              <use href="./img/sprite.svg#icon-star"></use>
+            </svg>
           </span>
         </div>
         <button class="exercise-card-start" data-id="${escHtml(ex._id)}" type="button"
           aria-label="Start ${escHtml(ex.name)}">
-          Start
-          <svg width="14" height="14" aria-hidden="true"><use href="./img/sprite.svg#icon-arrow-right"></use></svg>
+          Start &rarr;
         </button>
       </div>
+      <!-- Row 2: runner icon + exercise name -->
+      <div class="exercise-card-title-row">
+        <svg class="exercise-card-runner" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+          <circle cx="11" cy="3.5" r="1.5" fill="currentColor"/>
+          <path d="M8 6.5l-2 5h2l1-3 2 2v4h2v-5l-2-2 1-2h3v-2h-4l-1.5 2.5L8 6.5z" fill="currentColor"/>
+        </svg>
+        <h3 class="exercise-card-name">${escHtml(ex.name)}</h3>
+      </div>
+      <!-- Row 3: inline meta info -->
+      <p class="exercise-card-meta-row">
+        Burned calories: ${ex.burnedCalories ?? 0} / ${ex.time ?? 0} min
+        <span class="exercise-card-meta-sep">|</span>
+        Body part: ${escHtml(ex.bodyPart ?? '—')}
+        <span class="exercise-card-meta-sep">|</span>
+        Target: ${escHtml(ex.target ?? '—')}
+      </p>
     </li>
   `).join('');
 
-  // Store full exercise objects keyed by id for quick lookup
   const map = new Map(exercises.map(ex => [ex._id, ex]));
-
   cardsGrid.querySelectorAll('.exercise-card-start').forEach(btn => {
     btn.addEventListener('click', () => {
       const ex = map.get(btn.dataset.id);
@@ -263,28 +243,32 @@ function renderExerciseCards(exercises) {
 
 // ─── View transitions ─────────────────────────────────────────────────────────
 
-/** Switch to the exercise list view for the selected category. */
+/** Switch to the exercise list view for the selected category.
+ *  Hides the filter tabs row, shows "Exercises / CategoryName" breadcrumb. */
 function showExercises() {
+  // Hide the section header (Exercises title + filter tabs)
+  if (workoutHeader) workoutHeader.hidden = true;
   workoutControls.hidden = false;
   showBreadcrumb(true);
   if (breadcrumbCurrent) breadcrumbCurrent.textContent = state.category?.name ?? '';
   loadExercises();
 }
 
-/** Switch back to the category grid and reset keyword search state. */
+/** Switch back to the category grid. */
 function showCategories() {
   state.category = null;
   state.keyword = '';
   state.exercisePage = 1;
   if (searchInput) searchInput.value = '';
-  // Keep workoutControls visible so the search bar stays accessible
+  // Restore filter tabs header
+  if (workoutHeader) workoutHeader.hidden = false;
+  workoutControls.hidden = true;
   showBreadcrumb(false);
   loadCategories();
 }
 
 /**
- * Show or hide the breadcrumb row (back button + category label).
- * The search bar stays visible either way.
+ * Show or hide the breadcrumb row.
  * @param {boolean} visible
  */
 function showBreadcrumb(visible) {
@@ -297,6 +281,13 @@ function showBreadcrumb(visible) {
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
+
+/** Set grid mode class for correct column count (categories: 3-col, exercises: 2-col). */
+function setGridMode(mode) {
+  if (!cardsGrid) return;
+  cardsGrid.classList.remove('is-categories', 'is-exercises');
+  cardsGrid.classList.add(`is-${mode}`);
+}
 
 /** Show skeleton loader cards while fetching. */
 function showLoader() {
@@ -324,8 +315,9 @@ function scrollToWorkout() {
 }
 
 /**
- * Determine the number of cards to request based on viewport width.
- * Matches the CSS grid columns: 1 col mobile, 2 tablet, 3 desktop.
+ * Grid limit per breakpoint.
+ * Categories: 3×3=9 desktop, 2×4=8 tablet, 1×4=4 mobile.
+ * Exercises: 2×4=8 desktop, 2×4=8 tablet, 1×4=4 mobile.
  */
 function getGridLimit() {
   const w = window.innerWidth;
@@ -335,7 +327,7 @@ function getGridLimit() {
 }
 
 /**
- * Map the UI filter tab name to the correct API query parameter key.
+ * Map filter tab name to API query parameter key.
  * @param {string} filter
  */
 function filterToParam(filter) {

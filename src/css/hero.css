@@ -1,164 +1,181 @@
 /* ===== Hero section ===== */
 .hero {
-  padding: 40px 0 32px;
+  padding: 40px 0 0;
   background-color: var(--color-bg);
 }
 
-.hero-inner {
+/* Top row: left text column + right thumb+tags */
+.hero-top {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 24px;
+  margin-bottom: 24px;
 }
 
 /* ---- Left column ---- */
 .hero-left {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
+}
+
+/* ✳ star icon */
+.hero-star {
+  font-size: 24px;
+  color: var(--color-text);
+  line-height: 1;
 }
 
 .hero-title {
-  font-size: 32px;
+  font-size: 36px;
   font-weight: 700;
   line-height: 1.15;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
   color: var(--color-text);
 }
 
-.hero-title-accent {
-  color: var(--color-accent);
+/* "Body" in italic per Figma spec */
+.hero-title em {
+  font-style: italic;
+  font-weight: 700;
 }
 
 .hero-desc {
   font-size: 14px;
   color: var(--color-text-muted);
   max-width: 420px;
+  line-height: 1.6;
 }
 
-/* ---- Filter tabs ---- */
-.filter-tabs {
+/* ---- Right column: thumbnail + tags ---- */
+.hero-right {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Small rounded thumbnail */
+.hero-thumb-wrap {
+  border-radius: 16px;
+  overflow: hidden;
+  max-width: 240px;
+}
+
+.hero-thumb {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  aspect-ratio: 3 / 2;
+}
+
+/* Tag pills row */
+.hero-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  padding-top: 4px;
+  list-style: none;
 }
 
-/* ---- Right column: quote ---- */
-.hero-right {
+.hero-tag {
+  display: inline-block;
+  padding: 6px 16px;
   border: 1px solid var(--color-border);
-  border-radius: 16px;
-  padding: 24px;
-  background-color: var(--color-surface);
-  min-height: 120px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  background-color: transparent;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.hero-tag:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* ---- Full-width hero image ---- */
+.hero-img-wrap {
+  border-radius: 20px;
+  overflow: hidden;
+  width: 100%;
+  line-height: 0;
+}
+
+.hero-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  aspect-ratio: 5 / 2;
+}
+
+/* ===== Workout / Exercises section ===== */
+.workout {
+  padding: 48px 0 56px;
+}
+
+/* Section header row: "Exercises" title left, filter tabs right */
+.workout-header {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
 }
 
-.quote-block {
-  width: 100%;
-}
-
-.quote-loader {
-  display: flex;
-  justify-content: center;
-  padding: 16px 0;
-}
-
-.quote-text {
-  font-size: 15px;
-  font-style: italic;
+.workout-title {
+  font-size: 22px;
+  font-weight: 700;
   color: var(--color-text);
-  line-height: 1.6;
-  margin-bottom: 12px;
-  position: relative;
-  padding-left: 16px;
 }
 
-.quote-text::before {
-  content: '"';
-  position: absolute;
-  left: 0;
-  top: -4px;
-  font-size: 28px;
-  line-height: 1;
-  color: var(--color-accent);
-}
-
-.quote-author {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--color-accent);
-  text-align: right;
-}
-
-/* ===== Workout section ===== */
-.workout {
-  padding: 32px 0 48px;
-}
-
-/* Search bar is always visible so users can search without picking a category first.
-   Use :not([hidden]) so the [hidden] attribute still works if we need to hide it entirely. */
+/* Breadcrumb + search row (shown when category selected) */
 .workout-controls {
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   gap: 16px;
   margin-bottom: 24px;
+  flex-wrap: wrap;
 }
 
 .workout-controls:not([hidden]) {
   display: flex;
 }
 
-/* Breadcrumb is only shown when inside a category — JS toggles [hidden] on this element. */
 .workout-breadcrumb {
   align-items: center;
   gap: 8px;
-  font-size: 13px;
-  color: var(--color-text-muted);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text);
 }
 
 .workout-breadcrumb:not([hidden]) {
   display: flex;
 }
 
-/* Ensure [hidden] always wins regardless of other display rules */
+.workout-breadcrumb-title {
+  color: var(--color-text);
+}
+
+/* Ensure [hidden] always wins */
 [hidden] {
   display: none !important;
 }
 
-.back-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 6px 12px 6px 8px;
-  background: none;
-  border: 1px solid var(--color-border);
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--color-text-muted);
-  cursor: pointer;
-  transition: color 0.2s ease, border-color 0.2s ease;
-}
-
-.back-btn:hover,
-.back-btn:focus-visible {
-  color: var(--color-accent);
-  border-color: var(--color-accent);
-}
-
 .breadcrumb-sep {
-  color: var(--color-border);
+  color: var(--color-text-muted);
+  font-weight: 400;
 }
 
 .breadcrumb-current {
-  font-weight: 600;
   color: var(--color-text);
   text-transform: capitalize;
 }
 
-/* Search form */
+/* Search form — pill style */
 .search-form {
   display: flex;
   align-items: center;
@@ -167,17 +184,19 @@
   border-radius: 30px;
   overflow: hidden;
   background-color: var(--color-surface);
-  max-width: 400px;
+  max-width: 320px;
+  padding: 0 4px 0 12px;
 }
 
 .search-input {
   flex: 1;
-  padding: 10px 16px;
+  padding: 9px 12px;
   background: none;
   border: none;
   outline: none;
   font-size: 14px;
   color: var(--color-text);
+  min-width: 0;
 }
 
 .search-input::placeholder {
@@ -188,13 +207,13 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 14px;
+  padding: 8px;
   background: none;
   border: none;
-  border-left: 1px solid var(--color-border);
   color: var(--color-text-muted);
   cursor: pointer;
   transition: color 0.2s ease;
+  flex-shrink: 0;
 }
 
 .search-btn:hover,
@@ -210,47 +229,195 @@
   font-size: 15px;
 }
 
+/* ===== Two-column layout: sidebar + main ===== */
+.workout-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Main area (right on desktop): cards grid */
+.workout-main {
+  /* flex order: shows first on mobile */
+  order: 0;
+}
+
+/* Sidebar (left on desktop): quote + photo + 110min cards */
+.workout-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  order: 1; /* below cards on mobile */
+}
+
+/* ===== Sidebar cards ===== */
+.sidebar-card {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* Quote card: dark background */
+.sidebar-quote {
+  background-color: var(--color-dark);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 180px;
+}
+
+.sidebar-quote-icon {
+  align-self: flex-start;
+}
+
+.sidebar-quote-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Quote text injected by quote.js */
+.quote-text {
+  font-size: 14px;
+  font-style: italic;
+  color: #ffffff;
+  line-height: 1.6;
+  position: relative;
+}
+
+.quote-text::before {
+  content: '\201C';
+  font-size: 32px;
+  line-height: 0.8;
+  color: var(--color-accent);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.quote-author {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-accent);
+  text-align: right;
+}
+
+.quote-loader {
+  display: flex;
+  justify-content: center;
+  padding: 16px 0;
+}
+
+/* Photo card */
+.sidebar-photo {
+  padding: 0;
+  line-height: 0;
+}
+
+.sidebar-photo-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  aspect-ratio: 3 / 2;
+}
+
+/* 110min card: white background */
+.sidebar-norm {
+  background-color: var(--color-surface);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar-norm-icon {
+  align-self: flex-start;
+  margin-bottom: 4px;
+}
+
+.sidebar-norm-number {
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--color-text);
+  line-height: 1;
+}
+
+.sidebar-norm-unit {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.sidebar-norm-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.sidebar-norm-desc {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
 /* ===== Tablet: 768px+ ===== */
 @media only screen and (min-width: 768px) {
-  .hero {
-    padding: 48px 0 40px;
+  .hero-top {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 32px;
+  }
+
+  .hero-left {
+    flex: 1;
+  }
+
+  .hero-right {
+    flex: 0 0 260px;
   }
 
   .hero-title {
-    font-size: 44px;
+    font-size: 48px;
   }
 
-  .workout-controls {
+  /* Sidebar on tablet: 2-col below cards */
+  .workout-sidebar {
     flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+  }
+
+  .workout-sidebar > .sidebar-card {
+    flex: 1;
   }
 }
 
 /* ===== Desktop: 1200px+ ===== */
 @media only screen and (min-width: 1200px) {
-  .hero {
-    padding: 56px 0 48px;
+  .hero-title {
+    font-size: 60px;
   }
 
-  .hero-inner {
+  .hero-thumb-wrap {
+    max-width: 100%;
+  }
+
+  /* Side-by-side layout: sidebar 25% left, main 75% right */
+  .workout-layout {
     flex-direction: row;
     align-items: flex-start;
-    gap: 48px;
+    gap: 24px;
   }
 
-  .hero-left {
-    flex: 1 1 50%;
-  }
-
-  .hero-right {
-    flex: 0 0 360px;
-    align-self: flex-start;
+  .workout-sidebar {
+    flex: 0 0 25%;
+    flex-direction: column;
+    order: 0; /* left column */
     position: sticky;
-    top: 90px;
+    top: 80px;
   }
 
-  .hero-title {
-    font-size: 56px;
+  .workout-main {
+    flex: 1;
+    order: 1; /* right column */
   }
 }

@@ -1,13 +1,28 @@
 /* ===== Favorites page ===== */
 .favorites-section {
-  padding: 40px 0 56px;
+  padding: 48px 0 56px;
+}
+
+/* Mirror the home workout-layout: sidebar left + main right */
+.favorites-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.favorites-main {
+  order: 0; /* main content first on mobile */
+}
+
+.favorites-sidebar {
+  order: 1; /* sidebar below on mobile */
 }
 
 .favorites-title {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 700;
   color: var(--color-text);
-  margin-bottom: 32px;
+  margin-bottom: 28px;
 }
 
 .favorites-empty {
@@ -39,6 +54,32 @@
 /* ===== Tablet: 768px+ ===== */
 @media only screen and (min-width: 768px) {
   .favorites-title {
-    font-size: 36px;
+    font-size: 40px;
+  }
+
+  .favorites-sidebar {
+    flex-direction: row;
+  }
+}
+
+/* ===== Desktop: 1200px+ ===== */
+@media only screen and (min-width: 1200px) {
+  .favorites-inner {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .favorites-sidebar {
+    flex: 0 0 25%;
+    flex-direction: column;
+    order: 0; /* left column */
+    position: sticky;
+    top: 80px;
+  }
+
+  .favorites-main {
+    flex: 1;
+    order: 1; /* right column */
   }
 }

@@ -1,22 +1,12 @@
-<!-- Site footer with logo, slogan, social links, and email subscription -->
+<!-- Site footer: dark bg, 3-column layout, subscription form -->
 <footer class="footer">
   <div class="container">
     <div class="footer-top">
-      <!-- Left: logo + tagline -->
+      <!-- Left: text logo + social icons -->
       <div class="footer-brand">
         <a class="footer-logo" href="./index.html" aria-label="Your Energy — home">
-          <svg width="107" height="32" aria-hidden="true">
-            <use href="./img/sprite.svg#logo"></use>
-          </svg>
+          <span class="footer-logo-text">Your Energy</span>
         </a>
-        <p class="footer-slogan">
-          Energize your life,<br />one workout at a time.
-        </p>
-      </div>
-
-      <!-- Right: social links + subscription -->
-      <div class="footer-right">
-        <p class="footer-social-label">Follow us</p>
         <ul class="footer-social" aria-label="Social networks">
           <li>
             <a class="footer-social-link" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
@@ -34,10 +24,19 @@
             </a>
           </li>
         </ul>
+      </div>
 
-        <!-- Email subscription form -->
+      <!-- Center: tagline with italic "body" -->
+      <div class="footer-center">
+        <p class="footer-tagline">
+          Transforming your<br /><em>body</em> shape with us
+        </p>
+      </div>
+
+      <!-- Right: subscription form -->
+      <div class="footer-right">
+        <p class="footer-subscribe-label">Subscribe and learn about new exercises!</p>
         <form class="subscribe-form" id="subscribeForm" novalidate>
-          <label class="subscribe-label" for="subscribeEmail">Subscribe for updates</label>
           <div class="subscribe-row">
             <input
               class="subscribe-input"
@@ -48,15 +47,18 @@
               autocomplete="email"
               required
             />
-            <button class="subscribe-btn" type="submit">Subscribe</button>
+            <button class="subscribe-btn" type="submit">Send</button>
           </div>
           <p class="subscribe-msg" id="subscribeMsg" aria-live="polite"></p>
         </form>
       </div>
     </div>
 
+    <!-- Footer bottom bar -->
     <div class="footer-bottom">
-      <p class="footer-copy">&copy; <span id="footerYear"></span> Your Energy. All rights reserved.</p>
+      <p class="footer-copy">Your Energy. All rights reserved.</p>
+      <p class="footer-copy">Privacy Policy / Terms of Service</p>
+      <p class="footer-copy">&copy;2023</p>
     </div>
   </div>
 </footer>

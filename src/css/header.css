@@ -3,17 +3,9 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  /* Keep header dark regardless of page theme */
-  --color-bg: #040404;
-  --color-surface: #111111;
-  --color-text: #ffffff;
-  --color-text-muted: #a4a4a4;
-  --color-border: #2e2e2e;
-  /* Logo: make the dark pentagon path (#010101) white on the dark header */
-  --color2: #ffffff;
   background-color: var(--color-bg);
   border-bottom: 1px solid var(--color-border);
-  padding: 16px 0;
+  padding: 14px 0;
 }
 
 .header-inner {
@@ -22,62 +14,71 @@
   gap: 16px;
 }
 
-/* Logo */
+/* Text logo "YOUR ENERGY" */
 .header-logo {
   display: inline-flex;
   align-items: center;
   flex-shrink: 0;
+  text-decoration: none;
 }
 
-.header-logo-icon path {
-  /* Allow CSS color to override logo for dark bg */
+.header-logo-text {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--color-text);
+  text-transform: uppercase;
+  line-height: 1;
 }
 
-/* Desktop nav — hidden on mobile */
+/* Desktop nav — dark pill container, hidden on mobile */
 .header-nav {
   display: none;
+  margin: 0 auto; /* center between logo and social */
 }
 
-.header-nav-list {
+/* Dark capsule wrapper */
+.header-nav-pill {
   display: flex;
   align-items: center;
-  gap: 28px;
+  height: 52px;
+  padding: 8px;
+  background-color: #242424;
+  border-radius: 26px;
 }
 
+/* Each nav link */
 .header-nav-link {
-  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 20px;
+  border-radius: 18px;
+  font-family: var(--font-family);
   font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: var(--color-text-muted);
-  transition: color 0.2s ease;
+  font-weight: 400;
+  color: #f4f4f4;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .header-nav-link:hover,
 .header-nav-link:focus-visible {
-  color: var(--color-text);
+  color: #ffffff;
 }
 
+/* Active link: light pill inside the dark capsule */
 .header-nav-link.active {
-  color: var(--color-text);
+  background-color: #f4f4f4;
+  color: #242424;
 }
 
-.header-nav-link.active::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: var(--color-accent);
-  border-radius: 2px;
-}
-
-/* Social links — hidden on mobile */
+/* Social links — simple icons, no background, hidden on mobile */
 .header-social {
   display: none;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
   margin-left: auto;
 }
 
@@ -85,8 +86,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-text-muted);
+  color: #242424;
   transition: color 0.2s ease;
+  text-decoration: none;
 }
 
 .header-social-link:hover,
@@ -106,6 +108,8 @@
   color: var(--color-text);
   cursor: pointer;
   transition: color 0.2s ease;
+  font-size: 28px;
+  line-height: 1;
 }
 
 .burger-btn:hover,
@@ -113,13 +117,13 @@
   color: var(--color-accent);
 }
 
-/* ===== Mobile menu overlay ===== */
+/* ===== Mobile menu overlay — fullscreen dark ===== */
 .mobile-menu {
   display: none;
   position: fixed;
   inset: 0;
   z-index: 200;
-  background-color: var(--color-bg);
+  background-color: var(--color-dark);
   overflow-y: auto;
 }
 
@@ -131,10 +135,11 @@
 .mobile-menu-inner {
   display: flex;
   flex-direction: column;
-  padding: 24px 16px 40px;
-  gap: 32px;
+  min-height: 100vh;
+  padding: 24px 20px 40px;
 }
 
+/* X close button — top right */
 .mobile-menu-close {
   align-self: flex-end;
   display: inline-flex;
@@ -143,9 +148,12 @@
   padding: 4px;
   background: none;
   border: none;
-  color: var(--color-text);
+  color: #ffffff;
+  font-size: 28px;
+  line-height: 1;
   cursor: pointer;
   transition: color 0.2s ease;
+  margin-bottom: 48px;
 }
 
 .mobile-menu-close:hover,
@@ -153,28 +161,55 @@
   color: var(--color-accent);
 }
 
+/* Links centered */
+.mobile-nav {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .mobile-nav-list {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  align-items: center;
+  gap: 28px;
 }
 
 .mobile-nav-link {
-  font-size: 18px;
-  font-weight: 500;
-  color: var(--color-text-muted);
+  font-size: 24px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.55);
+  text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .mobile-nav-link.active,
 .mobile-nav-link:hover,
 .mobile-nav-link:focus-visible {
-  color: var(--color-accent);
+  color: #ffffff;
 }
 
+/* Social icons — bottom center */
 .mobile-social {
   display: flex;
-  gap: 16px;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.mobile-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.55);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.mobile-social-link:hover,
+.mobile-social-link:focus-visible {
+  color: #ffffff;
 }
 
 /* ===== Tablet: 768px+ ===== */
