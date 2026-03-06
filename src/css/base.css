@@ -6,12 +6,13 @@
   --color-surface-2: #e8e8e8;
   --color-dark: #1e1e1e;
   --color-dark-2: #2c2c2c;
-  --color-accent: #ef8964;
-  --color-accent-hover: #e07045;
+  --color-accent: #242424;
+  --color-accent-hover: #3a3a3a;
   --color-text: #1e1e1e;
   --color-text-muted: #a4a4a4;
   --color-border: #d8d8d8;
   --color-overlay: rgba(0, 0, 0, 0.55);
+  --color-star: #EEA10C;
 
   /* Typography */
   --font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
@@ -47,14 +48,19 @@
 body {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  background-color: var(--color-bg);
+  min-height: 100%; /* stretch to viewport via html { height: 100% }, no forced overflow */
+  background-color: #ffffff;
   color: var(--color-text);
   font-family: var(--font-family);
+  overflow-x: hidden; /* prevent horizontal page overflow */
+  width: 100%;
 }
 
 main {
-  flex-grow: 1;
+  flex-grow: 1; /* fill remaining body height, pushes footer to bottom */
+  width: 100%;
+  overflow-x: hidden; /* contain any overflowing child elements */
+  min-width: 0;       /* allow flex item to shrink below content size */
 }
 
 /* Scroll-to-top button */

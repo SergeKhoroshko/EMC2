@@ -1,7 +1,8 @@
 /* ===== Hero section ===== */
 .hero {
   padding: 40px 0 0;
-  background-color: var(--color-bg);
+  background-color: var(--color-bg); /* explicit gray — body is now white */
+  overflow-x: hidden; /* contain wide child elements */
 }
 
 /* Top row: left text column + right thumb+tags */
@@ -19,16 +20,17 @@
   gap: 16px;
 }
 
-/* ✳ star icon */
+/* Burst SVG icon */
 .hero-star {
-  font-size: 24px;
-  color: var(--color-text);
-  line-height: 1;
+  display: block;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
 }
 
 .hero-title {
   font-size: 36px;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.15;
   color: var(--color-text);
 }
@@ -36,7 +38,7 @@
 /* "Body" in italic per Figma spec */
 .hero-title em {
   font-style: italic;
-  font-weight: 700;
+  font-weight: 400;
 }
 
 .hero-desc {
@@ -98,6 +100,7 @@
   border-radius: 20px;
   overflow: hidden;
   width: 100%;
+  max-width: 100%; /* prevent image wrapper from exceeding container */
   line-height: 0;
 }
 
@@ -112,6 +115,7 @@
 /* ===== Workout / Exercises section ===== */
 .workout {
   padding: 48px 0 56px;
+  background-color: var(--color-bg); /* explicit gray — body is now white */
 }
 
 /* Section header row: "Exercises" title left, filter tabs right */
@@ -242,12 +246,20 @@
   order: 0;
 }
 
-/* Sidebar (left on desktop): quote + photo + 110min cards */
+/* Sidebar: stacked column on mobile */
 .workout-sidebar {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  order: 1; /* below cards on mobile */
+  margin-top: 32px;
+}
+
+/* Base height — overridden per breakpoint below */
+.sidebar-quote,
+.sidebar-photo,
+.sidebar-norm {
+  overflow: hidden;
+  flex-shrink: 0;
 }
 
 /* ===== Sidebar cards ===== */
@@ -256,14 +268,14 @@
   overflow: hidden;
 }
 
-/* Quote card: dark background */
+/* Quote card: single dark rectangle */
 .sidebar-quote {
-  background-color: var(--color-dark);
+  background-color: #242424;
+  border-radius: 20px;
   padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  min-height: 180px;
 }
 
 .sidebar-quote-icon {
@@ -299,7 +311,7 @@
 .quote-author {
   font-size: 12px;
   font-weight: 600;
-  color: var(--color-accent);
+  color: #F4F4F4; /* white on dark quote card background */
   text-align: right;
 }
 
@@ -318,9 +330,8 @@
 .sidebar-photo-img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: cover;
-  aspect-ratio: 3 / 2;
 }
 
 /* 110min card: white background */
@@ -381,43 +392,123 @@
     font-size: 48px;
   }
 
-  /* Sidebar on tablet: 2-col below cards */
+  /* Sidebar on tablet: 2-col grid — quote+photo top row, norm full-width below */
   .workout-sidebar {
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 16px;
+    margin-top: 0;
   }
 
-  .workout-sidebar > .sidebar-card {
-    flex: 1;
+  .sidebar-quote {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .sidebar-photo {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .sidebar-norm {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  /* Tablet sidebar card heights — Figma values */
+  .sidebar-quote,
+  .sidebar-photo,
+  .sidebar-norm {
+    height: 249px;
+    flex-shrink: 0;
   }
 }
 
 /* ===== Desktop: 1200px+ ===== */
 @media only screen and (min-width: 1200px) {
+  .workout-title {
+    font-size: 32px;
+  }
+
+  /* Left column: title-row on top, description below */
+  .hero-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  /* Burst icon + title side by side */
+  .hero-title-row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .hero-star {
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+    margin-top: 8px; /* align icon with first line of title cap height */
+  }
+
   .hero-title {
-    font-size: 60px;
+    font-size: 74px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    flex: none;
+    width: auto;
   }
 
   .hero-thumb-wrap {
     max-width: 100%;
   }
 
-  /* Side-by-side layout: sidebar 25% left, main 75% right */
+  /* Two-column flex: 264px sidebar left, exercise area right */
   .workout-layout {
+    display: flex;
     flex-direction: row;
+    gap: 16px;
     align-items: flex-start;
-    gap: 24px;
   }
 
+  /* Sidebar: vertical flex column, fixed 264px width */
   .workout-sidebar {
-    flex: 0 0 25%;
+    display: flex;
     flex-direction: column;
+    gap: 16px;
+    flex-shrink: 0;
+    width: 264px;
+    margin-top: 0;
     order: 0; /* left column */
-    position: sticky;
-    top: 80px;
   }
 
+  /* Exercise main area fills remaining width */
   .workout-main {
     flex: 1;
+    min-width: 0; /* prevent overflow */
     order: 1; /* right column */
+  }
+
+  /* Sidebar card heights — based on 238px exercise card height at 1280px container */
+  /* calc: (1280 - 264 - 16 - 16×2) / 3 = 317px wide × 3/4 = 238px tall */
+  .sidebar-quote,
+  .sidebar-photo,
+  .sidebar-norm {
+    height: 238px;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .sidebar-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    display: block;
   }
 }

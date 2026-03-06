@@ -2,6 +2,7 @@
 
 /**
  * Render pagination buttons into the #pagination element.
+ * Shows: first «  prev ‹  page numbers  next ›  last »
  *
  * @param {{ currentPage: number, totalPages: number, onPageChange: function }} opts
  */
@@ -28,21 +29,23 @@ export function renderPagination({ currentPage, totalPages, onPageChange }) {
   });
 }
 
-/**
- * Build the inner HTML for pagination controls.
- * Shows prev/next arrows and a window of page number buttons.
- */
 function buildPaginationHTML(current, total) {
   const pages = getPageRange(current, total);
   let html = '';
 
-  // Previous arrow
-  html += `<button class="pagination-btn" data-page="${current - 1}"
+  // First page «
+  html += `<button class="pagination-btn pagination-btn--nav" data-page="1"
+    aria-label="First page" ${current === 1 ? 'disabled' : ''}>
+    <svg width="20" height="20" aria-hidden="true"><use href="./img/sprite.svg#icon-chevron-double-left"></use></svg>
+  </button>`;
+
+  // Previous page ‹
+  html += `<button class="pagination-btn pagination-btn--nav" data-page="${current - 1}"
     aria-label="Previous page" ${current === 1 ? 'disabled' : ''}>
     <svg width="20" height="20" aria-hidden="true"><use href="./img/sprite.svg#icon-chevron-left"></use></svg>
   </button>`;
 
-  // Page numbers with optional ellipsis
+  // Page numbers
   for (const page of pages) {
     if (page === '...') {
       html += `<span class="pagination-ellipsis" aria-hidden="true">…</span>`;
@@ -54,28 +57,29 @@ function buildPaginationHTML(current, total) {
     }
   }
 
-  // Next arrow
-  html += `<button class="pagination-btn" data-page="${current + 1}"
+  // Next page ›
+  html += `<button class="pagination-btn pagination-btn--nav" data-page="${current + 1}"
     aria-label="Next page" ${current === total ? 'disabled' : ''}>
     <svg width="20" height="20" aria-hidden="true"><use href="./img/sprite.svg#icon-chevron-right"></use></svg>
+  </button>`;
+
+  // Last page »
+  html += `<button class="pagination-btn pagination-btn--nav" data-page="${total}"
+    aria-label="Last page" ${current === total ? 'disabled' : ''}>
+    <svg width="20" height="20" aria-hidden="true"><use href="./img/sprite.svg#icon-chevron-double-right"></use></svg>
   </button>`;
 
   return html;
 }
 
-/**
- * Compute the array of pages to display (numbers + '...' placeholders).
- * Keeps at most 7 items visible.
- */
 function getPageRange(current, total) {
+  // Show all pages if 7 or fewer
   if (total <= 7) {
     return Array.from({ length: total }, (_, i) => i + 1);
   }
 
   const pages = [];
-  const delta = 1; // siblings around current
-
-  // Always show first and last; fill middle with window around current
+  const delta = 1;
   const range = new Set([1, total]);
   for (let i = Math.max(2, current - delta); i <= Math.min(total - 1, current + delta); i++) {
     range.add(i);

@@ -1,3 +1,23 @@
+/* Global box-sizing — include padding and border in element dimensions */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove browser-default margin/padding; prevent horizontal overflow */
+html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  height: 100%; /* allow body min-height: 100% to reference viewport height */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
 h1,
 h2,
 h3,

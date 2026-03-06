@@ -11,6 +11,7 @@
 
 /* Layout sections */
 @import url('./header.css');
+@import url('./quote.css');
 @import url('./hero.css');
 @import url('./filters.css');
 @import url('./cards.css');

@@ -27,10 +27,28 @@ const workoutHeader = document.getElementById('workoutHeader');
 
 // ─── Public init ──────────────────────────────────────────────────────────────
 
+// Tracks last known per-page value to detect breakpoint crossings on resize
+let lastPerPage = getPerPage();
+
 /** Boot the home-page workout section. */
 export async function initHome() {
   // Filter tab clicks
   document.getElementById('filterTabs')?.addEventListener('click', onFilterTabClick);
+
+  // Re-render grid when crossing the 768px breakpoint
+  window.addEventListener('resize', () => {
+    const newPerPage = getPerPage();
+    if (newPerPage !== lastPerPage) {
+      lastPerPage = newPerPage;
+      if (state.category !== null || state.keyword) {
+        state.exercisePage = 1;
+        loadExercises();
+      } else {
+        state.categoryPage = 1;
+        loadCategories();
+      }
+    }
+  });
 
   // Search form
   searchForm?.addEventListener('submit', e => {
@@ -86,7 +104,7 @@ async function loadCategories() {
   setGridMode('categories');
 
   try {
-    const limit = getGridLimit();
+    const limit = getPerPage();
     const data = await fetchFilters({
       filter: state.filter,
       page: state.categoryPage,
@@ -116,7 +134,7 @@ async function loadExercises() {
   setGridMode('exercises');
 
   try {
-    const limit = getGridLimit();
+    const limit = getPerPage();
     const params = {
       keyword: state.keyword || undefined,
       page: state.exercisePage,
@@ -200,7 +218,6 @@ function renderExerciseCards(exercises) {
       <!-- Row 1: WORKOUT pill + rating LEFT, Start → RIGHT -->
       <div class="exercise-card-top">
         <div class="exercise-card-top-left">
-          <span class="exercise-card-badge">Workout</span>
           <span class="exercise-card-rating">
             ${Number(ex.rating).toFixed(1)}
             <svg class="exercise-card-star" width="13" height="13" aria-hidden="true">
@@ -213,22 +230,11 @@ function renderExerciseCards(exercises) {
           Start &rarr;
         </button>
       </div>
-      <!-- Row 2: runner icon + exercise name -->
-      <div class="exercise-card-title-row">
-        <svg class="exercise-card-runner" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-          <circle cx="11" cy="3.5" r="1.5" fill="currentColor"/>
-          <path d="M8 6.5l-2 5h2l1-3 2 2v4h2v-5l-2-2 1-2h3v-2h-4l-1.5 2.5L8 6.5z" fill="currentColor"/>
-        </svg>
+      <!-- Row 2: name first, category below -->
+      <div class="exercise-card-body">
         <h3 class="exercise-card-name">${escHtml(ex.name)}</h3>
+        <p class="exercise-card-category">${escHtml(ex.bodyPart || ex.target || '')}</p>
       </div>
-      <!-- Row 3: inline meta info -->
-      <p class="exercise-card-meta-row">
-        Burned calories: ${ex.burnedCalories ?? 0} / ${ex.time ?? 0} min
-        <span class="exercise-card-meta-sep">|</span>
-        Body part: ${escHtml(ex.bodyPart ?? '—')}
-        <span class="exercise-card-meta-sep">|</span>
-        Target: ${escHtml(ex.target ?? '—')}
-      </p>
     </li>
   `).join('');
 
@@ -291,7 +297,7 @@ function setGridMode(mode) {
 
 /** Show skeleton loader cards while fetching. */
 function showLoader() {
-  const n = getGridLimit();
+  const n = getPerPage();
   cardsGrid.innerHTML = Array.from({ length: n }, () => `
     <li class="card-skeleton">
       <div class="skeleton-line short"></div>
@@ -314,16 +320,9 @@ function scrollToWorkout() {
   document.getElementById('workoutSection')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-/**
- * Grid limit per breakpoint.
- * Categories: 3×3=9 desktop, 2×4=8 tablet, 1×4=4 mobile.
- * Exercises: 2×4=8 desktop, 2×4=8 tablet, 1×4=4 mobile.
- */
-function getGridLimit() {
-  const w = window.innerWidth;
-  if (w >= 1200) return 9;
-  if (w >= 768) return 8;
-  return 4;
+/** Items per page: 9 on mobile (< 768px), 12 on tablet and above. */
+function getPerPage() {
+  return window.innerWidth < 768 ? 9 : 12;
 }
 
 /**

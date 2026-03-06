@@ -20,12 +20,16 @@
       <section class="hero">
         <div class="container">
           <div class="hero-top">
-            <!-- Left: star icon + headline + description -->
+            <!-- Left: burst icon + headline inline, description below -->
             <div class="hero-left">
-              <span class="hero-star" aria-hidden="true">&#10035;</span>
-              <h1 class="hero-title">
-                Get <em>Body</em> in shape,<br />Stay healthy
-              </h1>
+              <div class="hero-title-row">
+                <svg class="hero-star" width="60" height="60" aria-hidden="true">
+                  <use href="./img/sprite.svg#icon-burst"></use>
+                </svg>
+                <h1 class="hero-title">
+                  Get <em>Body</em> in shape,<br />Stay healthy
+                </h1>
+              </div>
               <p class="hero-desc">
                 Discover a wealth of exercises to energize your body and mind.
                 Select your category and start your journey today.
@@ -169,9 +173,8 @@
               <!-- 110min card: white bg -->
               <div class="sidebar-card sidebar-norm">
                 <div class="sidebar-norm-icon" aria-hidden="true">
-                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                    <path d="M8 16a2 2 0 0 1 2-2h2V8a2 2 0 0 1 4 0v6h2a2 2 0 1 1 0 4h-2v6a2 2 0 0 1-4 0v-6h-2a2 2 0 0 1-2-2z" fill="#1e1e1e"/>
-                    <path d="M4 10h2M26 10h2M4 22h2M26 22h2" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round"/>
+                  <svg width="32" height="32" aria-hidden="true">
+                    <use href="./img/sprite.svg#icon-dumbbell"></use>
                   </svg>
                 </div>
                 <p class="sidebar-norm-number">110 <span class="sidebar-norm-unit">min</span></p>

@@ -1,0 +1,59 @@
+/* ===== Quote of the day card ===== */
+
+.quote-card {
+  flex-grow: 1; /* fill remaining sidebar height */
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Header row: runner icon + label + quote marks — single line */
+.quote-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: nowrap; /* prevent label from wrapping to second line */
+}
+
+/* Circular icon container */
+.quote-icon-wrap {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(244, 244, 244, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #F4F4F4;
+}
+
+/* "Quote of the day" label */
+.quote-label {
+  white-space: nowrap; /* keep text on one line */
+  font-size: 16px;
+  font-weight: 500;
+  color: #F4F4F4;
+  flex: 1;
+}
+
+/* Decorative quote marks icon */
+.quote-marks {
+  color: #F4F4F4;
+  flex-shrink: 0;
+}
+
+/* Quote body text */
+.quote-text {
+  color: #F4F4F4;
+  font-size: 14px;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+/* Author attribution */
+.quote-author {
+  color: #F4F4F4;
+  font-size: 14px;
+  font-weight: 500;
+}

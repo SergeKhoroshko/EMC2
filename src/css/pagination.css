@@ -14,33 +14,38 @@
   width: 32px;
   height: 32px;
   padding: 0;
-  border: 1px solid rgba(36, 36, 36, 0.1);
+  border: 1px solid rgba(36, 36, 36, 0.2);
   border-radius: 50%;
   background: transparent;
   font-family: var(--font-family);
   font-size: 14px;
   font-weight: 400;
-  color: #d5d5d5;
-  cursor: pointer;
-  transition: border-color 0.2s ease, color 0.2s ease;
-}
-
-.pagination-btn:hover:not(:disabled),
-.pagination-btn:focus-visible:not(:disabled) {
-  border-color: #242424;
   color: #242424;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
 }
 
-/* Active page */
+/* Active page number */
 .pagination-btn.active {
   border-color: #242424;
-  color: #242424;
+  font-weight: 500;
 }
 
-/* Arrow buttons */
+/* Disabled nav buttons (first/prev/next/last at boundaries) */
 .pagination-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* Hover on any enabled button */
+.pagination-btn:not(:disabled):hover {
+  border-color: #242424;
+}
+
+/* Icon size inside nav buttons */
+.pagination-btn svg {
+  width: 16px;
+  height: 16px;
 }
 
 /* Ellipsis dots */
@@ -51,6 +56,6 @@
   width: 32px;
   height: 32px;
   font-size: 14px;
-  color: #d5d5d5;
+  color: rgba(36, 36, 36, 0.4);
   cursor: default;
 }

@@ -1,6 +1,7 @@
 /* ===== Favorites page ===== */
 .favorites-section {
   padding: 48px 0 56px;
+  background-color: var(--color-bg); /* explicit gray — body is now white */
 }
 
 /* Mirror the home workout-layout: sidebar left + main right */
