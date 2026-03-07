@@ -2,9 +2,11 @@
 import { openModal, closeModal, bindModalClose } from './modal.js';
 import { rateExercise } from './api.js';
 
-const EMAIL_REGEX = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
+const EMAIL_REGEX = /^\w+(\.\w+)?@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 
 let currentExerciseId = null;
+/** Full exercise object stored so we can re-open the exercise modal after rating. */
+let currentExercise = null;
 
 /**
  * Initialise rating modal — set up close handlers and star interaction.
@@ -23,11 +25,13 @@ export function initRatingModal() {
 }
 
 /**
- * Open the rating modal for the given exercise id.
+ * Open the rating modal for the given exercise.
  * @param {string} exerciseId
+ * @param {object} [exercise] - full exercise object; if provided, exercise modal re-opens on success
  */
-export function openRatingModal(exerciseId) {
+export function openRatingModal(exerciseId, exercise = null) {
   currentExerciseId = exerciseId;
+  currentExercise = exercise;
   resetForm();
   const backdrop = document.getElementById('ratingModalBackdrop');
   openModal(backdrop);
@@ -116,6 +120,11 @@ async function handleSubmit(e) {
     closeModal(backdrop);
     resetForm();
     showToast('Thank you for your rating!');
+    // Re-open exercise modal per spec
+    if (currentExercise) {
+      const { openExerciseModal } = await import('./exercise-modal.js');
+      openExerciseModal(currentExercise);
+    }
   } catch (err) {
     console.error('Rating error:', err);
     // 409 = email already used for this exercise

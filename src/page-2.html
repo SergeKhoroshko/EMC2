@@ -30,10 +30,17 @@
 
               <!-- Empty state when no favorites saved -->
               <div class="favorites-empty" id="favoritesEmpty" hidden>
+                <div class="favorites-empty-icon" aria-hidden="true">
+                  <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                    <circle cx="32" cy="32" r="32" fill="rgba(238,161,12,0.10)"/>
+                    <path d="M32 46s-16-9.5-16-20a10 10 0 0 1 16-8 10 10 0 0 1 16 8c0 10.5-16 20-16 20z" fill="rgba(238,161,12,0.25)" stroke="#EEA10C" stroke-width="2" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <p class="favorites-empty-heading">No favorites yet</p>
                 <p class="favorites-empty-text">
-                  Your favorites list is empty.<br />
-                  <a class="favorites-empty-link" href="./index.html">Browse exercises</a> and add ones you love!
+                  Start adding exercises you love!
                 </p>
+                <a class="favorites-empty-btn" href="./index.html">Browse exercises</a>
               </div>
             </div>
 

@@ -50,9 +50,7 @@
 
 /* ---- Right column: thumbnail + tags ---- */
 .hero-right {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  display: none; /* hidden on mobile — shown from tablet+ */
 }
 
 /* Small rounded thumbnail */
@@ -385,6 +383,9 @@
   }
 
   .hero-right {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
     flex: 0 0 260px;
   }
 

@@ -1,7 +1,7 @@
 // ===== Footer — email subscription + copyright year =====
 import { subscribe } from './api.js';
 
-const EMAIL_REGEX = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
+const EMAIL_REGEX = /^\w+(\.\w+)?@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 
 /** Initialise footer: subscription form and dynamic year. */
 export function initFooter() {

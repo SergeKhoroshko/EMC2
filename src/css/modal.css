@@ -358,20 +358,32 @@ body.modal-open {
   background-color: #f0f0f0;
 }
 
-/* ===== Desktop: 1200px+ ===== */
+/* ===== Desktop: 768px+ ===== */
 @media only screen and (min-width: 768px) {
-  .ex-modal-inner {
+  .exercise-modal {
+    display: flex;
     flex-direction: row;
+    max-width: 700px;
+    overflow: hidden;
   }
 
   .ex-modal-media {
-    flex: 0 0 260px;
+    flex: 0 0 280px;
+    width: 280px;
     aspect-ratio: unset;
     border-radius: 16px 0 0 16px;
-    min-height: 300px;
+    align-self: stretch;
+  }
+
+  .ex-modal-gif {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .ex-modal-body {
     flex: 1;
+    overflow-y: auto;
+    max-height: calc(100vh - 32px);
   }
 }

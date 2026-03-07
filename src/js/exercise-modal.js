@@ -20,9 +20,12 @@ export function initExerciseModal(favChangeCallback, isFavoritesPage = false) {
 
   bindModalClose(backdrop, 'exerciseModalClose');
 
-  // Give a rating button
+  // Give a rating button — close exercise modal first, then open rating
   document.getElementById('exModalRateBtn')?.addEventListener('click', () => {
-    if (currentExercise) openRatingModal(currentExercise._id);
+    if (!currentExercise) return;
+    const exerciseBackdrop = document.getElementById('exerciseModalBackdrop');
+    closeModal(exerciseBackdrop);
+    openRatingModal(currentExercise._id, currentExercise);
   });
 
   // Add / remove favorites button
