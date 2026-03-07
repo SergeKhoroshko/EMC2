@@ -211,13 +211,14 @@ function renderCategoryCards(results) {
   });
 }
 
-/** Render exercise card list items — new Figma layout. */
+/** Render exercise card list items — Figma layout. */
 function renderExerciseCards(exercises) {
   cardsGrid.innerHTML = exercises.map(ex => `
     <li class="exercise-card">
-      <!-- Row 1: WORKOUT pill + rating LEFT, Start → RIGHT -->
+      <!-- Row 1: WORKOUT badge + rating LEFT, Start → RIGHT -->
       <div class="exercise-card-top">
         <div class="exercise-card-top-left">
+          <span class="exercise-card-badge">Workout</span>
           <span class="exercise-card-rating">
             ${Number(ex.rating).toFixed(1)}
             <svg class="exercise-card-star" width="13" height="13" aria-hidden="true">
@@ -230,11 +231,19 @@ function renderExerciseCards(exercises) {
           Start &rarr;
         </button>
       </div>
-      <!-- Row 2: name first, category below -->
-      <div class="exercise-card-body">
+      <!-- Row 2: icon + name -->
+      <div class="exercise-card-title-row">
+        <svg class="exercise-card-icon" width="18" height="18" aria-hidden="true">
+          <use href="./img/sprite.svg#icon-runner"></use>
+        </svg>
         <h3 class="exercise-card-name">${escHtml(ex.name)}</h3>
-        <p class="exercise-card-category">${escHtml(ex.bodyPart || ex.target || '')}</p>
       </div>
+      <!-- Row 3: meta info -->
+      <p class="exercise-card-meta">
+        <span><span class="meta-label">Burned calories:</span> <span class="meta-value">${escHtml(String(ex.burnedCalories || '—'))} / ${escHtml(String(ex.time || '—'))} min</span></span>
+        <span><span class="meta-label">Body part:</span> <span class="meta-value">${escHtml(ex.bodyPart || '—')}</span></span>
+        <span><span class="meta-label">Target:</span> <span class="meta-value">${escHtml(ex.target || '—')}</span></span>
+      </p>
     </li>
   `).join('');
 
@@ -249,10 +258,8 @@ function renderExerciseCards(exercises) {
 
 // ─── View transitions ─────────────────────────────────────────────────────────
 
-/** Switch to the exercise list view for the selected category.
- *  Hides the filter tabs row, shows "Exercises / CategoryName" breadcrumb. */
+/** Switch to the exercise list view for the selected category. */
 function showExercises() {
-  // Hide the section header (Exercises title + filter tabs)
   if (workoutHeader) workoutHeader.hidden = true;
   workoutControls.hidden = false;
   showBreadcrumb(true);
@@ -266,17 +273,12 @@ function showCategories() {
   state.keyword = '';
   state.exercisePage = 1;
   if (searchInput) searchInput.value = '';
-  // Restore filter tabs header
   if (workoutHeader) workoutHeader.hidden = false;
   workoutControls.hidden = true;
   showBreadcrumb(false);
   loadCategories();
 }
 
-/**
- * Show or hide the breadcrumb row.
- * @param {boolean} visible
- */
 function showBreadcrumb(visible) {
   if (!workoutBreadcrumb) return;
   if (visible) {
@@ -288,14 +290,12 @@ function showBreadcrumb(visible) {
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-/** Set grid mode class for correct column count (categories: 3-col, exercises: 2-col). */
 function setGridMode(mode) {
   if (!cardsGrid) return;
   cardsGrid.classList.remove('is-categories', 'is-exercises');
   cardsGrid.classList.add(`is-${mode}`);
 }
 
-/** Show skeleton loader cards while fetching. */
 function showLoader() {
   const n = getPerPage();
   cardsGrid.innerHTML = Array.from({ length: n }, () => `
@@ -308,27 +308,20 @@ function showLoader() {
   cardsEmpty.hidden = true;
 }
 
-/** Show an error message in the grid area. */
 function showError(msg) {
   cardsGrid.innerHTML = '';
   cardsEmpty.hidden = false;
   cardsEmpty.textContent = msg;
 }
 
-/** Scroll to the workout section smoothly. */
 function scrollToWorkout() {
   document.getElementById('workoutSection')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-/** Items per page: 9 on mobile (< 768px), 12 on tablet and above. */
 function getPerPage() {
   return window.innerWidth < 768 ? 9 : 12;
 }
 
-/**
- * Map filter tab name to API query parameter key.
- * @param {string} filter
- */
 function filterToParam(filter) {
   const map = {
     'Muscles': 'muscles',
@@ -338,7 +331,6 @@ function filterToParam(filter) {
   return map[filter] ?? 'muscles';
 }
 
-/** Simple HTML escape to prevent XSS from API data. */
 function escHtml(str) {
   return String(str ?? '')
     .replace(/&/g, '&amp;')

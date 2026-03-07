@@ -4,7 +4,7 @@
   grid-template-columns: 1fr;
   gap: 16px;
   list-style: none;
-  min-width: 0; /* prevent grid from overflowing a flex parent */
+  min-width: 0;
   width: 100%;
 }
 
@@ -38,7 +38,6 @@
   transform: scale(1.06);
 }
 
-/* Dark overlay: name + filter type centered white text */
 .category-card-overlay {
   position: absolute;
   inset: 0;
@@ -75,7 +74,7 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   transition: box-shadow 0.2s ease;
 }
 
@@ -83,7 +82,7 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
-/* Row 1: "WORKOUT" pill (outline) + rating ★ LEFT, "Start →" RIGHT */
+/* Row 1: badge + rating LEFT, Start → RIGHT */
 .exercise-card-top {
   display: flex;
   align-items: center;
@@ -97,18 +96,19 @@
   gap: 8px;
 }
 
-/* "WORKOUT" outline pill */
+/* "WORKOUT" pill — white bg, black border, black text */
 .exercise-card-badge {
   display: inline-block;
   padding: 4px 12px;
   border-radius: 20px;
-  border: 1px solid var(--color-border);
-  background: transparent;
+  border: 1px solid #242424;
+  background: #ffffff;
   font-size: 11px;
   font-weight: 600;
-  color: var(--color-text-muted);
+  color: #242424;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  white-space: nowrap;
 }
 
 /* Rating: number + ★ */
@@ -126,52 +126,75 @@
   flex-shrink: 0;
 }
 
-/* "Start →" button right */
+/* "Start →" — plain text, no border */
 .exercise-card-start {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
+  gap: 4px;
+  padding: 0;
   background: none;
-  border: 1px solid var(--color-border);
-  border-radius: 20px;
-  font-size: 13px;
+  border: none;
+  font-size: 14px;
   font-weight: 500;
   color: var(--color-text);
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  transition: color 0.2s ease;
   white-space: nowrap;
 }
 
 .exercise-card-start:hover,
 .exercise-card-start:focus-visible {
-  background-color: var(--color-text);
-  color: #ffffff;
-  border-color: var(--color-text);
+  color: var(--color-accent);
 }
 
-/* Row 2: name (top) + category (below) */
-.exercise-card-body {
+/* Row 2: icon + exercise name */
+.exercise-card-title-row {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 16px;
-  gap: 4px;
+  align-items: center;
+  gap: 10px;
 }
 
-/* Exercise name — prominent, appears first in DOM and visually */
+/* Black circle with white runner icon inside */
+.exercise-card-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  background: #242424;
+  border-radius: 50%;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1px;
+  box-sizing: border-box;
+}
+
 .exercise-card-name {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 400;
-  color: #F4F4F4;
+  color: var(--color-text);
+  text-transform: capitalize;
+  margin: 0;
 }
 
-/* Category label — small subtitle below name */
-.exercise-card-category {
+/* Row 3: meta — calories / body part / target — one line */
+.exercise-card-meta {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 4px 20px;
   font-size: 12px;
   font-weight: 400;
-  color: rgba(244, 244, 244, 0.6);
-  text-transform: capitalize;
+  color: var(--color-text-muted);
+  margin: 0;
+  white-space: nowrap;
+}
+
+.meta-label {
+  color: var(--color-text-muted);
+}
+
+.meta-value {
+  color: var(--color-text);
 }
 
 /* Remove button on favorites page */
@@ -227,6 +250,10 @@
     row-gap: 16px;
   }
 
+  .cards-grid.is-exercises {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .category-card {
     height: 225px;
     aspect-ratio: unset;
@@ -240,16 +267,22 @@
 
 /* ===== Desktop: 1200px+ ===== */
 @media only screen and (min-width: 1200px) {
-  /* Both grids: 3 columns, 15px col gap, 32px row gap — exact Figma Desktop values */
-  .cards-grid.is-categories,
-  .cards-grid.is-exercises,
-  .cards-grid {
+  /* Categories: 3 columns */
+  .cards-grid,
+  .cards-grid.is-categories {
     grid-template-columns: repeat(3, 1fr);
     column-gap: 15px;
     row-gap: 32px;
   }
 
-  /* Fixed card height on desktop — exact Figma value: 242px */
+  /* Exercises: 2 columns */
+  .cards-grid.is-exercises {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 15px;
+    row-gap: 32px;
+  }
+
+  /* Fixed card height on desktop */
   .category-card {
     height: 242px;
     aspect-ratio: unset;
