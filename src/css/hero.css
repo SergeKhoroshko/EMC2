@@ -468,21 +468,21 @@
     max-width: 100%;
   }
 
-  /* Two-column flex: 264px sidebar left, exercise area right */
+  /* Two-column flex: 444px sidebar left, exercise area right — exact Figma values */
   .workout-layout {
     display: flex;
     flex-direction: row;
-    gap: 16px;
+    gap: 32px;
     align-items: flex-start;
   }
 
-  /* Sidebar: vertical flex column, fixed 264px width */
+  /* Sidebar: vertical flex column, fixed 444px width — exact Figma value */
   .workout-sidebar {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 32px;
     flex-shrink: 0;
-    width: 264px;
+    width: 444px;
     margin-top: 0;
     order: 0; /* left column */
   }
@@ -494,12 +494,16 @@
     order: 1; /* right column */
   }
 
-  /* Sidebar card heights — based on 238px exercise card height at 1280px container */
-  /* calc: (1280 - 264 - 16 - 16×2) / 3 = 317px wide × 3/4 = 238px tall */
+  /* Sidebar card heights — exact Figma Desktop values */
   .sidebar-quote,
-  .sidebar-photo,
+  .sidebar-photo {
+    height: 242px;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
   .sidebar-norm {
-    height: 238px;
+    height: 315px;
     flex-shrink: 0;
     overflow: hidden;
   }

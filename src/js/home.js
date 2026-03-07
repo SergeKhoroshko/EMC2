@@ -192,8 +192,8 @@ function renderCategoryCards(results) {
         : `<div class="category-card-img" style="background:var(--color-surface-2)"></div>`
       }
       <div class="category-card-overlay">
-        <span class="category-card-filter">${escHtml(item.filter)}</span>
         <span class="category-card-name">${escHtml(item.name)}</span>
+        <span class="category-card-filter">${escHtml(item.filter)}</span>
       </div>
     </li>
   `).join('');

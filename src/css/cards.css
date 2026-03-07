@@ -229,21 +229,23 @@
 
 /* ===== Desktop: 1200px+ ===== */
 @media only screen and (min-width: 1200px) {
-  /* Category grid: 3 columns in the 75% main area */
-  .cards-grid.is-categories {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-
-  /* Exercise grid: 2 columns in the 75% main area */
-  .cards-grid.is-exercises {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-
-  /* Fallback when class not set yet */
+  /* Both grids: 3 columns, 15px col gap, 32px row gap — exact Figma Desktop values */
+  .cards-grid.is-categories,
+  .cards-grid.is-exercises,
   .cards-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 15px;
+    row-gap: 32px;
+  }
+
+  /* Fixed card height on desktop — exact Figma value: 242px */
+  .category-card {
+    height: 242px;
+    aspect-ratio: unset;
+  }
+
+  .category-card-img {
+    aspect-ratio: unset;
+    height: 100%;
   }
 }

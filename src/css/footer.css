@@ -97,8 +97,9 @@
 
 .subscribe-row {
   display: flex;
+  flex-direction: column;
   gap: 8px;
-  align-items: center;
+  align-items: stretch;
 }
 
 .subscribe-input {
@@ -122,7 +123,9 @@
   border-color: rgba(255, 255, 255, 0.4);
 }
 
+/* Mobile: full width button */
 .subscribe-btn {
+  width: 100%;
   flex-shrink: 0;
   padding: 12px 24px;
   background-color: #ffffff;
@@ -199,6 +202,15 @@
   .footer-bottom {
     flex-direction: row;
     justify-content: space-between;
+  }
+
+  .subscribe-row {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .subscribe-btn {
+    width: auto;
   }
 }
 
