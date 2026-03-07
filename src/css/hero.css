@@ -464,8 +464,30 @@
     width: auto;
   }
 
+  /* hero-right: exact Figma width to fit thumbnail 168px + tags 197px */
+  .hero-right {
+    flex: 0 0 200px;
+    width: 200px;
+  }
+
+  /* Thumbnail: exact Figma Desktop value 168×100px */
   .hero-thumb-wrap {
-    max-width: 100%;
+    width: 168px;
+    max-width: 168px;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .hero-thumb {
+    width: 168px;
+    height: 100px;
+    object-fit: cover;
+    aspect-ratio: unset;
+  }
+
+  /* Tags: max-width matching Figma Block 197px */
+  .hero-tags {
+    max-width: 197px;
   }
 
   /* Two-column flex: 444px sidebar left, exercise area right — exact Figma values */
