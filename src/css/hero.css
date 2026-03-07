@@ -20,12 +20,25 @@
   gap: 16px;
 }
 
-/* Burst SVG icon */
-.hero-star {
+/* Icon floats left — first line runs beside it, second line wraps
+   back to the same left edge as the icon. Matches Figma at all breakpoints. */
+.hero-title-row {
   display: block;
+}
+
+.hero-title-row::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* Burst SVG icon — floated so text wraps correctly */
+.hero-star {
+  float: left;
   width: 40px;
   height: 40px;
-  flex-shrink: 0;
+  margin-right: 12px;
+  margin-top: 6px; /* optical alignment with title cap-height */
 }
 
 .hero-title {
@@ -40,6 +53,7 @@
   font-style: italic;
   font-weight: 400;
 }
+
 
 .hero-desc {
   font-size: 14px;
@@ -393,6 +407,13 @@
     font-size: 48px;
   }
 
+  /* Burst icon grows to full size from tablet up */
+  .hero-star {
+    width: 60px;
+    height: 60px;
+    margin-top: 6px; /* optical alignment with 48px title */
+  }
+
   /* Sidebar on tablet: 2-col grid — quote+photo top row, norm full-width below */
   .workout-sidebar {
     display: grid;
@@ -441,23 +462,18 @@
     align-items: flex-start;
   }
 
-  /* Burst icon + title side by side */
-  .hero-title-row {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 16px;
-  }
-
+  /* Float-based layout maintained — just update icon size and spacing */
   .hero-star {
     width: 60px;
     height: 60px;
-    flex-shrink: 0;
-    margin-top: 8px; /* align icon with first line of title cap height */
+    margin-right: 16px;
+    margin-top: 10px; /* optical alignment with 74px title cap height */
   }
 
+  /* Intermediate size: 1200-1399px — heroLeft may be ~550-700px,
+     74px causes 3 lines. 58px fits "Get Body in shape," in ~580px */
   .hero-title {
-    font-size: 74px;
+    font-size: 58px;
     font-weight: 400;
     line-height: 1;
     letter-spacing: -0.02em;
@@ -499,13 +515,13 @@
     align-items: flex-start;
   }
 
-  /* Sidebar: vertical flex column, fixed 444px width — exact Figma value */
+  /* Sidebar: vertical flex column, responsive width */
   .workout-sidebar {
     display: flex;
     flex-direction: column;
     gap: 32px;
     flex-shrink: 0;
-    width: 444px;
+    width: 320px;
     margin-top: 0;
     order: 0; /* left column */
   }
@@ -537,5 +553,21 @@
     object-fit: cover;
     border-radius: 20px;
     display: block;
+  }
+}
+
+/* ===== Full Desktop: 1440px+ — restore exact Figma values ===== */
+@media only screen and (min-width: 1440px) {
+  .workout-sidebar {
+    width: 444px;
+  }
+
+  /* Full Figma title size — enough width for 2-line layout */
+  .hero-title {
+    font-size: 74px;
+  }
+
+  .hero-star {
+    margin-top: 12px; /* optical alignment with 74px cap height */
   }
 }

@@ -97,13 +97,20 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
-    flex: 0 0 444px;
-    width: 444px;
+    flex: 0 0 320px;
+    width: 320px;
     order: 0;
   }
 
   .favorites-main {
     flex: 1;
     order: 1;
+  }
+}
+/* ===== Full Desktop: 1440px+ — restore exact Figma sidebar width ===== */
+@media only screen and (min-width: 1440px) {
+  .favorites-sidebar {
+    flex: 0 0 444px;
+    width: 444px;
   }
 }
