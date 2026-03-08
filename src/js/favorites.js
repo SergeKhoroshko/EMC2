@@ -1,3 +1,4 @@
+import spriteUrl from './sprite.js';
 // ===== Favorites page — render saved exercises from localStorage =====
 import { getFavorites, removeFavorite } from './storage.js';
 import { openExerciseModal } from './exercise-modal.js';
@@ -33,7 +34,7 @@ export function renderFavorites() {
             aria-label="Remove ${escHtml(ex.name)} from favorites"
           >
             <svg width="16" height="16" aria-hidden="true">
-              <use href="./img/sprite.svg#icon-trash"></use>
+              <use href="${spriteUrl}#icon-trash"></use>
             </svg>
           </button>
         </div>
@@ -50,7 +51,7 @@ export function renderFavorites() {
       <!-- Row 2: runner icon + exercise name -->
       <div class="fav-card-name-row">
         <svg class="fav-card-icon" width="24" height="24" aria-hidden="true">
-          <use href="./img/sprite.svg#icon-runner"></use>
+          <use href="${spriteUrl}#icon-runner"></use>
         </svg>
         <h3 class="exercise-card-name">${escHtml(ex.name)}</h3>
       </div>

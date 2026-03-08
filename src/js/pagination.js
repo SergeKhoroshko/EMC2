@@ -1,3 +1,4 @@
+import spriteUrl from './sprite.js';
 // ===== Pagination renderer =====
 
 /**
@@ -36,13 +37,13 @@ function buildPaginationHTML(current, total) {
   // First page «
   html += `<button class="pagination-btn pagination-btn--nav" data-page="1"
     aria-label="First page" ${current === 1 ? 'disabled' : ''}>
-    <svg width="20" height="20" aria-hidden="true"><use href="./img/sprite.svg#icon-chevron-double-left"></use></svg>
+    <svg width="20" height="20" aria-hidden="true"><use href="${spriteUrl}#icon-chevron-double-left"></use></svg>
   </button>`;
 
   // Previous page ‹
   html += `<button class="pagination-btn pagination-btn--nav" data-page="${current - 1}"
     aria-label="Previous page" ${current === 1 ? 'disabled' : ''}>
-    <svg width="20" height="20" aria-hidden="true"><use href="./img/sprite.svg#icon-chevron-left"></use></svg>
+    <svg width="20" height="20" aria-hidden="true"><use href="${spriteUrl}#icon-chevron-left"></use></svg>
   </button>`;
 
   // Page numbers
@@ -60,13 +61,13 @@ function buildPaginationHTML(current, total) {
   // Next page ›
   html += `<button class="pagination-btn pagination-btn--nav" data-page="${current + 1}"
     aria-label="Next page" ${current === total ? 'disabled' : ''}>
-    <svg width="20" height="20" aria-hidden="true"><use href="./img/sprite.svg#icon-chevron-right"></use></svg>
+    <svg width="20" height="20" aria-hidden="true"><use href="${spriteUrl}#icon-chevron-right"></use></svg>
   </button>`;
 
   // Last page »
   html += `<button class="pagination-btn pagination-btn--nav" data-page="${total}"
     aria-label="Last page" ${current === total ? 'disabled' : ''}>
-    <svg width="20" height="20" aria-hidden="true"><use href="./img/sprite.svg#icon-chevron-double-right"></use></svg>
+    <svg width="20" height="20" aria-hidden="true"><use href="${spriteUrl}#icon-chevron-double-right"></use></svg>
   </button>`;
 
   return html;

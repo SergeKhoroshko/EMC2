@@ -1,3 +1,4 @@
+import spriteUrl from './sprite.js';
 // ===== Home page — categories, exercises, search, pagination =====
 import { fetchFilters, fetchExercises } from './api.js';
 import { renderPagination } from './pagination.js';
@@ -222,7 +223,7 @@ function renderExerciseCards(exercises) {
           <span class="exercise-card-rating">
             ${Number(ex.rating).toFixed(1)}
             <svg class="exercise-card-star" width="13" height="13" aria-hidden="true">
-              <use href="./img/sprite.svg#icon-star"></use>
+              <use href="${spriteUrl}#icon-star"></use>
             </svg>
           </span>
         </div>
@@ -234,7 +235,7 @@ function renderExerciseCards(exercises) {
       <!-- Row 2: icon + name -->
       <div class="exercise-card-title-row">
         <svg class="exercise-card-icon" width="18" height="18" aria-hidden="true">
-          <use href="./img/sprite.svg#icon-runner"></use>
+          <use href="${spriteUrl}#icon-runner"></use>
         </svg>
         <h3 class="exercise-card-name">${escHtml(ex.name)}</h3>
       </div>

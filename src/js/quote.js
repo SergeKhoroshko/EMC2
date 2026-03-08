@@ -1,3 +1,4 @@
+import spriteUrl from './sprite.js';
 // ===== Quote of the day =====
 import { fetchQuote } from './api.js';
 import { getCachedQuote, cacheQuote } from './storage.js';
@@ -13,12 +14,12 @@ function renderQuote(quote) {
       <div class="quote-card-header">
         <div class="quote-icon-wrap">
           <svg width="22" height="22" aria-hidden="true">
-            <use href="./img/sprite.svg#icon-runner"></use>
+            <use href="${spriteUrl}#icon-runner"></use>
           </svg>
         </div>
         <span class="quote-label">Quote of the day</span>
         <svg class="quote-marks" width="24" height="18" aria-hidden="true">
-          <use href="./img/sprite.svg#icon-quotes"></use>
+          <use href="${spriteUrl}#icon-quotes"></use>
         </svg>
       </div>
       <p class="quote-text">${quote.quote}</p>

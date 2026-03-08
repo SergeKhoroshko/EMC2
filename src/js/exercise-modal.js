@@ -1,3 +1,4 @@
+import spriteUrl from './sprite.js';
 // ===== Exercise detail modal =====
 import { openModal, closeModal, bindModalClose } from './modal.js';
 import { openRatingModal } from './rating-modal.js';
@@ -84,11 +85,11 @@ function updateFavButton(id) {
   if (inFav) {
     btn.className = 'btn btn-remove';
     btn.innerHTML = `Remove from favorites
-      <svg width="16" height="16" aria-hidden="true"><use href="./img/sprite.svg#icon-trash"></use></svg>`;
+      <svg width="16" height="16" aria-hidden="true"><use href="${spriteUrl}#icon-trash"></use></svg>`;
   } else {
     btn.className = 'btn btn-favorite';
     btn.innerHTML = `Add to favorites
-      <svg width="16" height="16" aria-hidden="true"><use href="./img/sprite.svg#icon-heart"></use></svg>`;
+      <svg width="16" height="16" aria-hidden="true"><use href="${spriteUrl}#icon-heart"></use></svg>`;
   }
 }
 
