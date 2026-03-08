@@ -266,10 +266,8 @@
 
 .workout-breadcrumb {
   align-items: center;
-  gap: 8px;
-  font-size: 16px;
+  gap: 6px;
   font-weight: 600;
-  color: var(--color-text);
 }
 
 .workout-breadcrumb:not([hidden]) {
@@ -277,7 +275,9 @@
 }
 
 .workout-breadcrumb-title {
-  color: var(--color-text);
+  font-size: 20px;
+  font-weight: 700;
+  color: #000;
 }
 
 /* Ensure [hidden] always wins */
@@ -286,12 +286,15 @@
 }
 
 .breadcrumb-sep {
-  color: var(--color-text-muted);
+  font-size: 16px;
   font-weight: 400;
+  color: var(--color-text-muted);
 }
 
 .breadcrumb-current {
-  color: var(--color-text);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--color-text-muted);
   text-transform: capitalize;
 }
 
