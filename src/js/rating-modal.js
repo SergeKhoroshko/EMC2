@@ -9,7 +9,7 @@ let currentExerciseId = null;
 let currentExercise = null;
 
 /**
- * Initialise rating modal — set up close handlers and star interaction.
+ * Initialise rating modal — set up close handlers and form submit.
  * Called once from main.js / page-2.js.
  */
 export function initRatingModal() {
@@ -17,8 +17,6 @@ export function initRatingModal() {
   if (!backdrop) return;
 
   bindModalClose(backdrop, 'ratingModalClose', resetForm);
-
-  initStarInteraction();
 
   const form = document.getElementById('ratingForm');
   form?.addEventListener('submit', handleSubmit);
@@ -33,60 +31,97 @@ export function openRatingModal(exerciseId, exercise = null) {
   currentExerciseId = exerciseId;
   currentExercise = exercise;
   resetForm();
+  initStarInteraction(); // re-init each open so listeners are clean
   const backdrop = document.getElementById('ratingModalBackdrop');
   openModal(backdrop);
 }
 
-// ─── Internals ────────────────────────────────────────────────────────────────
+// ─── Star interaction ─────────────────────────────────────────────────────────
 
-/** Make the 5 star buttons interactive (highlight on hover/select, update score). */
+/**
+ * Re-initialises star interaction on every modal open.
+ * Clones the fieldset to remove any previously bound listeners (no memory leaks).
+ */
 function initStarInteraction() {
-  const labels = [...document.querySelectorAll('#ratingStars .star-label')];
+  const oldFieldset = document.getElementById('ratingStars');
+  if (!oldFieldset) return;
+
+  // Clone to wipe old event listeners
+  const fieldset = oldFieldset.cloneNode(true);
+  oldFieldset.parentNode.replaceChild(fieldset, oldFieldset);
+
+  const labels = Array.from(fieldset.querySelectorAll('.star-label'));
+
+  // Ensure all stars start grey (score already set to 0.0 by resetForm)
+  setActiveStars(labels, 0);
 
   labels.forEach((label, idx) => {
-    const input = label.querySelector('.star-input');
+    const starValue = idx + 1; // 1-based
 
-    // On radio change (click), permanently highlight stars and update score
-    input?.addEventListener('change', () => {
-      highlightStars(idx, labels);
-      updateScore(idx + 1);
+    // Hover preview
+    label.addEventListener('mouseenter', () => {
+      setHoverStars(labels, starValue);
     });
 
-    // On hover, preview highlight
-    label.addEventListener('mouseenter', () => highlightStars(idx, labels));
-
-    // On leave, restore to the currently selected radio value
+    // Restore to selected on leave
     label.addEventListener('mouseleave', () => {
-      const checkedIdx = labels.findIndex(l => l.querySelector('.star-input:checked'));
-      highlightStars(checkedIdx, labels);
+      const selected = getSelectedValue(fieldset);
+      setActiveStars(labels, selected);
     });
+
+    // Click — select this star
+    label.addEventListener('click', () => {
+      const input = label.querySelector('.star-input');
+      if (input) input.checked = true;
+      setActiveStars(labels, starValue);
+      updateScore(starValue);
+    });
+  });
+
+  // Safety: mouseleave from the whole fieldset restores selection
+  fieldset.addEventListener('mouseleave', () => {
+    const selected = getSelectedValue(fieldset);
+    setActiveStars(labels, selected);
   });
 }
 
-/** Update the numeric score display in the rating modal header. */
+/** Highlight stars 1..n as active (yellow), rest as inactive (grey). */
+function setActiveStars(labels, n) {
+  labels.forEach((label, i) => {
+    label.classList.remove('star-hover');
+    label.classList.toggle('lit', i < n);
+  });
+}
+
+/** Highlight stars 1..n as hovered (preview), clear active classes. */
+function setHoverStars(labels, n) {
+  labels.forEach((label, i) => {
+    label.classList.remove('lit');
+    label.classList.toggle('star-hover', i < n);
+  });
+}
+
+/** Returns the currently selected star value (1-5), or 0 if none selected. */
+function getSelectedValue(fieldset) {
+  const checked = fieldset.querySelector('.star-input:checked');
+  return checked ? parseInt(checked.value, 10) : 0;
+}
+
+/** Update the numeric score display. */
 function updateScore(value) {
   const scoreEl = document.getElementById('ratingModalScore');
   if (scoreEl) scoreEl.textContent = `${value}.0`;
 }
 
-/**
- * Light up stars from index 0 up to and including `idx`.
- * Stars are in DOM order: index 0 = star 1 (lowest), index 4 = star 5 (highest).
- * @param {number} idx - 0-based index of the selected/hovered star (-1 clears all)
- * @param {HTMLElement[]} labels - all star label elements
- */
-function highlightStars(idx, labels) {
-  labels.forEach((label, i) => {
-    label.classList.toggle('lit', i <= idx);
-  });
-}
+// ─── Form submit ──────────────────────────────────────────────────────────────
 
 /** Validate and submit the rating form. */
 async function handleSubmit(e) {
   e.preventDefault();
   const form = e.target;
   const email = form.email.value.trim();
-  const rateInput = form.querySelector('.star-input:checked');
+  const fieldset = document.getElementById('ratingStars');
+  const rateInput = fieldset?.querySelector('.star-input:checked');
   const errorEl = document.getElementById('ratingEmailError');
 
   // Validate email
@@ -127,7 +162,6 @@ async function handleSubmit(e) {
     }
   } catch (err) {
     console.error('Rating error:', err);
-    // 409 = email already used for this exercise
     if (err.message.includes('409')) {
       if (errorEl) errorEl.textContent = 'You have already rated this exercise with this email.';
     } else {
@@ -139,11 +173,23 @@ async function handleSubmit(e) {
   }
 }
 
-/** Reset form fields and star highlights. */
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
+/** Reset form fields, star highlights, score display and error messages. */
 function resetForm() {
   const form = document.getElementById('ratingForm');
   form?.reset();
-  document.querySelectorAll('#ratingStars .star-label').forEach(l => l.classList.remove('lit'));
+
+  // Reset all star visuals
+  document.querySelectorAll('#ratingStars .star-label').forEach(l => {
+    l.classList.remove('lit', 'star-hover');
+  });
+
+  // Reset score to 0.0
+  const scoreEl = document.getElementById('ratingModalScore');
+  if (scoreEl) scoreEl.textContent = '0.0';
+
+  // Clear errors
   const errorEl = document.getElementById('ratingEmailError');
   if (errorEl) errorEl.textContent = '';
   form?.querySelector('#ratingEmail')?.classList.remove('invalid');

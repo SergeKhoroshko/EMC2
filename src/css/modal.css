@@ -334,6 +334,11 @@ body.modal-open {
   color: #f5c518;
 }
 
+/* Hover preview */
+.star-label.star-hover {
+  color: rgba(245, 197, 24, 0.7);
+}
+
 /* Form */
 .rating-form {
   padding: 16px 24px 28px;
