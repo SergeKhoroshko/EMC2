@@ -3,6 +3,9 @@
   | CSS entry — imports all partials
   |============================
 */
+/* Fonts */
+@import url('./fonts.css');
+
 /* Normalize */
 @import url('./modern-normalize.css');
 
