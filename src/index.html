@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <link rel="icon" type="image/svg+xml" href="./img/favicon.svg">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Your Energy — discover and favorite the best fitness exercises for every body part." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Your Energy — discover and favorite the best fitness exercises for every body part.">
   <title>Your Energy</title>
-  <link rel="stylesheet" href="./css/styles.css" />
+  <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
 <!-- Header with active Home link -->
-<load src="./partials/header.html" home-active="active" />
+<load src="./partials/header.html" home-active="active">
 
 <main>
   <!-- ===== HERO SECTION ===== -->
@@ -43,7 +43,7 @@
               width="220" height="160"
               loading="eager"
               fetchpriority="high"
-            />
+           >
           </div>
           <ul class="hero-tags" aria-label="Related topics">
             <li><span class="hero-tag">#Sport</span></li>
@@ -62,7 +62,7 @@
           alt="Woman exercising outdoors"
           width="1200" height="480"
           loading="lazy"
-        />
+       >
       </div>
     </div>
   </section>
@@ -93,7 +93,7 @@
             placeholder="Search exercises…"
             autocomplete="off"
             aria-label="Search exercises by name"
-          />
+         >
         </form>
 
         <!-- Filter tabs: Muscles | Body parts | Equipment -->
@@ -165,7 +165,7 @@
               alt="Women taking a break from workout"
               width="300" height="200"
               loading="lazy"
-            />
+           >
           </div>
 
           <!-- 110min card: white bg -->
@@ -189,7 +189,7 @@
   </section>
 </main>
 
-<load src="./partials/footer.html" />
+<load src="./partials/footer.html">
 
 <!-- ===== EXERCISE DETAIL MODAL ===== -->
 <div class="modal-backdrop" id="exerciseModalBackdrop" aria-modal="true" role="dialog" aria-labelledby="exModalTitle" hidden>
@@ -201,13 +201,13 @@
     <!-- GIF / image: dark panel → inner light rounded rect → image -->
     <div class="ex-modal-media">
       <div class="ex-modal-img-wrap">
-        <img class="ex-modal-gif" id="exModalGif" src="" alt="" loading="lazy" />
+        <img class="ex-modal-gif" id="exModalGif" alt="" loading="lazy">
       </div>
     </div>
 
     <div class="ex-modal-body">
       <!-- Name -->
-      <h2 class="ex-modal-title" id="exModalTitle" aria-label="Exercise name"></h2>
+      <h2 class="ex-modal-title" id="exModalTitle"><span class="sr-only">Exercise details</span></h2>
 
       <!-- Rating: number + stars -->
       <div class="ex-modal-rating-row">
@@ -215,7 +215,7 @@
         <span class="ex-modal-stars" id="exModalStars" role="img" aria-label="Exercise rating stars"></span>
       </div>
 
-      <hr class="ex-modal-divider" />
+      <hr class="ex-modal-divider">
 
       <!-- 4-column meta: Target | Body Part | Equipment | Popular -->
       <ul class="ex-modal-meta">
@@ -241,7 +241,7 @@
       <p class="ex-modal-calories-label">Burned calories</p>
       <p class="ex-modal-calories-val" id="exModalCalories"></p>
 
-      <hr class="ex-modal-divider" />
+      <hr class="ex-modal-divider">
 
       <!-- Description -->
       <p class="ex-modal-desc" id="exModalDesc"></p>
@@ -273,23 +273,23 @@
         <fieldset class="rating-stars" id="ratingStars">
           <legend class="sr-only">Choose a rating from 1 to 5</legend>
           <label class="star-label" title="1 star">
-            <input class="star-input sr-only" type="radio" name="rate" value="1" required />
+            <input class="star-input sr-only" type="radio" name="rate" value="1" required>
             <svg width="28" height="28" aria-hidden="true"><use href="./img/sprite.svg#icon-star"></use></svg>
           </label>
           <label class="star-label" title="2 stars">
-            <input class="star-input sr-only" type="radio" name="rate" value="2" />
+            <input class="star-input sr-only" type="radio" name="rate" value="2">
             <svg width="28" height="28" aria-hidden="true"><use href="./img/sprite.svg#icon-star"></use></svg>
           </label>
           <label class="star-label" title="3 stars">
-            <input class="star-input sr-only" type="radio" name="rate" value="3" />
+            <input class="star-input sr-only" type="radio" name="rate" value="3">
             <svg width="28" height="28" aria-hidden="true"><use href="./img/sprite.svg#icon-star"></use></svg>
           </label>
           <label class="star-label" title="4 stars">
-            <input class="star-input sr-only" type="radio" name="rate" value="4" />
+            <input class="star-input sr-only" type="radio" name="rate" value="4">
             <svg width="28" height="28" aria-hidden="true"><use href="./img/sprite.svg#icon-star"></use></svg>
           </label>
           <label class="star-label" title="5 stars">
-            <input class="star-input sr-only" type="radio" name="rate" value="5" />
+            <input class="star-input sr-only" type="radio" name="rate" value="5">
             <svg width="28" height="28" aria-hidden="true"><use href="./img/sprite.svg#icon-star"></use></svg>
           </label>
         </fieldset>
@@ -306,7 +306,7 @@
         placeholder="email@example.com"
         autocomplete="email"
         required
-      />
+     >
       <p class="rating-error" id="ratingEmailError" aria-live="polite"></p>
 
       <!-- Comment textarea — dark -->
