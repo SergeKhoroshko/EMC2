@@ -24,7 +24,7 @@ const workoutBreadcrumb = document.getElementById('workoutBreadcrumb');
 const breadcrumbCurrent = document.getElementById('breadcrumbCurrent');
 const searchForm = document.getElementById('searchForm');
 const searchInput = document.getElementById('searchInput');
-const workoutHeader = document.getElementById('workoutHeader');
+const workoutTitle = document.getElementById('workoutTitle');
 
 // ─── Public init ──────────────────────────────────────────────────────────────
 
@@ -260,7 +260,7 @@ function renderExerciseCards(exercises) {
 
 /** Switch to the exercise list view for the selected category. */
 function showExercises() {
-  if (workoutHeader) workoutHeader.hidden = true;
+  if (workoutTitle) workoutTitle.hidden = true;
   if (searchForm) searchForm.hidden = false;
   showBreadcrumb(true);
   if (breadcrumbCurrent) breadcrumbCurrent.textContent = state.category?.name ?? '';
@@ -273,7 +273,7 @@ function showCategories() {
   state.keyword = '';
   state.exercisePage = 1;
   if (searchInput) searchInput.value = '';
-  if (workoutHeader) workoutHeader.hidden = false;
+  if (workoutTitle) workoutTitle.hidden = false;
   if (searchForm) searchForm.hidden = true;
   showBreadcrumb(false);
   loadCategories();

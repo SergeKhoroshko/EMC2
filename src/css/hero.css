@@ -144,9 +144,10 @@
   font-size: 22px;
   font-weight: 700;
   color: var(--color-text);
+  flex-shrink: 0;
 }
 
-/* Controls row — always visible */
+/* Controls row — always visible, title/breadcrumb left, search+filters right */
 .workout-controls {
   display: flex;
   flex-direction: row;
@@ -155,6 +156,12 @@
   gap: 16px;
   margin-bottom: 24px;
   flex-wrap: wrap;
+}
+
+/* When breadcrumb or search visible — push filters to right */
+.workout-controls:has(.workout-breadcrumb:not([hidden])),
+.workout-controls:has(.search-form:not([hidden])) {
+  justify-content: space-between;
 }
 
 /* On mobile: filters go to their own row at the bottom */
