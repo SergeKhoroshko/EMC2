@@ -34,7 +34,7 @@
 /* Desktop nav — dark pill container, hidden on mobile */
 .header-nav {
   display: none;
-  margin: 0 auto; /* center between logo and social */
+  margin: 0 auto;
 }
 
 /* Dark capsule wrapper */
@@ -74,7 +74,7 @@
   color: #242424;
 }
 
-/* Social links — simple icons, no background, hidden on mobile */
+/* Social links — hidden on mobile */
 .header-social {
   display: none;
   align-items: center;
@@ -86,13 +86,20 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(36, 36, 36, 0.10);
   color: #242424;
-  transition: color 0.2s ease;
   text-decoration: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .header-social-link:hover,
 .header-social-link:focus-visible {
+  background-color: rgba(36, 36, 36, 0.08);
+  border-color: rgba(36, 36, 36, 0.25);
   color: var(--color-accent);
 }
 
@@ -202,13 +209,20 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.10);
   color: rgba(255, 255, 255, 0.55);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .mobile-social-link:hover,
 .mobile-social-link:focus-visible {
+  background-color: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.25);
   color: #ffffff;
 }
 

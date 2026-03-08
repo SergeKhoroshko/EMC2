@@ -71,62 +71,87 @@ body.modal-open {
   border-color: #ffffff;
 }
 
-/* ===== Exercise detail modal — dark #1e1e1e ===== */
+/* ===== Exercise detail modal — Figma spec ===== */
 .exercise-modal {
-  max-width: 680px;
+  max-width: 700px; /* Figma: 708px */
 }
 
-/* Desktop: side-by-side image + body */
+/* Mobile: stacked. Desktop: side-by-side via media query */
 .ex-modal-inner {
   display: flex;
   flex-direction: column;
 }
 
+/* Image panel — dark background, contains inner light rect */
+/* =====================================================
+   EXERCISE MODAL — IMAGE PANEL
+
+   MOBILE (<768px):
+     - ПССУ = весь медиа-блок, светлый, скруглены верхние углы
+     - Нет тёмного фона снаружи
+
+   TABLET/DESKTOP (≥768px):
+     - Тёмный левый столбец
+     - Внутри: ПССУ — БЕЛЫЙ квадрат (aspect-ratio 1/1), выровнен по верху
+       на том же уровне что начинается заголовок справа (padding-top = 28px)
+     - Снизу от ПССУ — тёмное пространство (это нормально по макету)
+   ===================================================== */
+
+/* MOBILE: медиа-блок и есть светлый прямоугольник */
 .ex-modal-media {
   width: 100%;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
+  height: 240px;
+  flex-shrink: 0;
+  background-color: #ffffff;
   border-radius: 16px 16px 0 0;
-  background-color: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* на мобильном img-wrap прозрачный — просто центрирует */
+.ex-modal-img-wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
 }
 
 .ex-modal-gif {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
   display: block;
 }
 
+/* Right body panel */
 .ex-modal-body {
-  padding: 20px 24px 28px;
+  padding: 24px 28px 28px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 0; /* gaps controlled by dividers + padding */
 }
 
-/* Name + stars row */
-.ex-modal-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-  padding-right: 40px; /* avoid overlap with close btn */
-}
-
+/* Name */
 .ex-modal-title {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
-  line-height: 1.3;
+  line-height: 1.2;
   color: #ffffff;
   text-transform: capitalize;
+  padding-right: 36px; /* avoid overlap with close btn */
+  margin-bottom: 8px;
 }
 
+/* Rating row: number + stars */
 .ex-modal-rating-row {
   display: flex;
   align-items: center;
-  gap: 6px;
-  flex-shrink: 0;
-  margin-top: 2px;
+  gap: 8px;
+  margin-bottom: 16px;
 }
 
 .ex-modal-rating-val {
@@ -135,68 +160,88 @@ body.modal-open {
   color: #ffffff;
 }
 
-/* Inline star characters rendered by JS */
 .ex-modal-stars {
   color: #f5c518;
-  font-size: 14px;
-  letter-spacing: 1px;
+  font-size: 16px;
+  letter-spacing: 2px;
 }
 
-/* 2×2 info grid */
+/* Divider — matches Figma horizontal rule */
+.ex-modal-divider {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  margin: 0 0 16px;
+}
+
+/* 4-column meta grid: Target | Body Part | Equipment | Popular */
 .ex-modal-meta {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px 16px;
-  background-color: rgba(255, 255, 255, 0.06);
-  border-radius: 12px;
-  padding: 16px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
   list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
 }
 
 .ex-modal-meta-item {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
 }
 
 .ex-modal-meta-label {
   font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: rgba(255, 255, 255, 0.45);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .ex-modal-meta-val {
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
   color: #ffffff;
   text-transform: capitalize;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Burned calories — single full-width row */
-.ex-modal-calories-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 16px;
-  background-color: rgba(255, 255, 255, 0.06);
-  border-radius: 10px;
+/* Burned calories row */
+.ex-modal-calories-label {
+  font-size: 11px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 4px;
+}
+
+.ex-modal-calories-val {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 16px;
+  text-transform: uppercase;
 }
 
 /* Description */
 .ex-modal-desc {
-  font-size: 14px;
-  line-height: 1.65;
-  color: rgba(255, 255, 255, 0.65);
+  font-size: 13px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 24px;
 }
 
-/* Action buttons */
+/* Action buttons — centered, equal width */
 .ex-modal-actions {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding-top: 4px;
+  gap: 16px;
+  justify-content: center;
+}
+
+.ex-modal-actions .btn {
+  flex: 1;
+  justify-content: center;
+  padding: 14px 20px;
+  font-size: 14px;
+  border-radius: 30px;
 }
 
 /* Add to favorites — light pill */
@@ -358,32 +403,63 @@ body.modal-open {
   background-color: #f0f0f0;
 }
 
-/* ===== Desktop: 768px+ ===== */
+/* ===== Desktop: 768px+ — side-by-side layout ===== */
 @media only screen and (min-width: 768px) {
   .exercise-modal {
     display: flex;
     flex-direction: row;
-    max-width: 700px;
+    overflow: hidden;
+    align-items: stretch;
+  }
+
+  /* Тёмный левый столбец — занимает полную высоту модала */
+  .ex-modal-media {
+    flex: 0 0 290px;
+    width: 290px;
+    height: auto;
+    min-height: unset;
+    background-color: var(--color-dark);
+    border-radius: 16px 0 0 16px;
+    /* padding-top = 28px совпадает с padding-top у .ex-modal-body */
+    padding: 28px 24px 24px 24px;
+    box-sizing: border-box;
+    align-self: stretch;
+    /* flex + align-items: flex-start → ПССУ прижат к верху, не растягивается */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
     overflow: hidden;
   }
 
-  .ex-modal-media {
-    flex: 0 0 280px;
-    width: 280px;
-    aspect-ratio: unset;
-    border-radius: 16px 0 0 16px;
-    align-self: stretch;
+  /* ПССУ: БЕЛЫЙ прямоугольник со скруглёнными углами.
+     Figma: 270×259px → aspect-ratio 270/259.
+     flex: 0 0 auto — НЕ расти (иначе flex-grow:1 переопределит aspect-ratio).
+     width: 100% = 290 - 24 - 24 = 242px → height ≈ 232px по aspect-ratio.
+     Снизу тёмная панель видна — это по макету Figma. */
+  .ex-modal-img-wrap {
+    flex: 0 0 auto;           /* не расти — иначе aspect-ratio игнорируется */
+    width: 100%;
+    height: auto;
+    aspect-ratio: 270 / 259;
+    background-color: #ffffff;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
   }
 
   .ex-modal-gif {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: 85%;
+    height: 85%;
+    object-fit: contain;
   }
 
   .ex-modal-body {
     flex: 1;
     overflow-y: auto;
     max-height: calc(100vh - 32px);
+    padding-top: 28px;
   }
 }

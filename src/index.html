@@ -200,22 +200,26 @@
       <svg width="20" height="20" aria-hidden="true"><use href="./img/sprite.svg#icon-close"></use></svg>
     </button>
 
-    <!-- GIF / image -->
+    <!-- GIF / image: dark panel → inner light rounded rect → image -->
     <div class="ex-modal-media">
-      <img class="ex-modal-gif" id="exModalGif" alt="" loading="lazy" />
+      <div class="ex-modal-img-wrap">
+        <img class="ex-modal-gif" id="exModalGif" alt="" loading="lazy" />
+      </div>
     </div>
 
     <div class="ex-modal-body">
-      <!-- Name + star rating row -->
-      <div class="ex-modal-header">
-        <h2 class="ex-modal-title" id="exModalTitle"></h2>
-        <div class="ex-modal-rating-row">
-          <span class="ex-modal-rating-val" id="exModalRating"></span>
-          <span class="ex-modal-stars" id="exModalStars" aria-label="stars"></span>
-        </div>
+      <!-- Name -->
+      <h2 class="ex-modal-title" id="exModalTitle"></h2>
+
+      <!-- Rating: number + stars -->
+      <div class="ex-modal-rating-row">
+        <span class="ex-modal-rating-val" id="exModalRating"></span>
+        <span class="ex-modal-stars" id="exModalStars" aria-label="stars"></span>
       </div>
 
-      <!-- 2×2 info grid: Target | Body Part / Equipment | Popular -->
+      <hr class="ex-modal-divider" />
+
+      <!-- 4-column meta: Target | Body Part | Equipment | Popular -->
       <ul class="ex-modal-meta">
         <li class="ex-modal-meta-item">
           <span class="ex-modal-meta-label">Target</span>
@@ -235,13 +239,13 @@
         </li>
       </ul>
 
-      <!-- Burned calories row -->
-      <div class="ex-modal-calories-row">
-        <span class="ex-modal-meta-label">Burned calories</span>
-        <span class="ex-modal-meta-val" id="exModalCalories"></span>
-      </div>
+      <!-- Burned calories -->
+      <p class="ex-modal-calories-label">Burned calories</p>
+      <p class="ex-modal-calories-val" id="exModalCalories"></p>
 
-      <!-- Description paragraph -->
+      <hr class="ex-modal-divider" />
+
+      <!-- Description -->
       <p class="ex-modal-desc" id="exModalDesc"></p>
 
       <!-- Action buttons -->
