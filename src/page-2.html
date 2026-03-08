@@ -6,7 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Your Energy — your favorite fitness exercises saved for quick access.">
     <title>Favorites — Your Energy</title>
-    <link rel="stylesheet" href="./css/styles.css">
+    <style>/* Critical CSS */
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;font-family:'DM Sans',sans-serif;background:#f4f4f4;color:#242424}
+.container{width:100%;max-width:1200px;margin:0 auto;padding:0 20px}
+.site-header{position:sticky;top:0;z-index:100;background:#f4f4f4;padding:16px 0}
+  </style>
+  <!-- Load CSS asynchronously to eliminate render-blocking -->
+  <link rel="preload" href="./css/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="./css/styles.css"></noscript>
   </head>
   <body>
     <!-- Header with active Favorites link -->

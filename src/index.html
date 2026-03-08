@@ -16,7 +16,17 @@
   <link rel="dns-prefetch" href="https://your-energy.b.goit.study">
   <link rel="dns-prefetch" href="https://ftp.goit.study">
   <link rel="preload" as="image" href="./img/hero-women.webp" media="(min-width: 768px)" fetchpriority="high">
-  <link rel="stylesheet" href="./css/styles.css">
+  <style>/* Critical CSS */
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;font-family:'DM Sans',sans-serif;background:#f4f4f4;color:#242424}
+.container{width:100%;max-width:1200px;margin:0 auto;padding:0 20px}
+.site-header{position:sticky;top:0;z-index:100;background:#f4f4f4;padding:16px 0}
+.hero-section{padding:32px 0}
+.hero-title{font-size:clamp(2rem,5vw,3.5rem);font-weight:700;margin:0 0 16px}
+  </style>
+  <!-- Load CSS asynchronously to eliminate render-blocking -->
+  <link rel="preload" href="./css/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="./css/styles.css"></noscript>
 </head>
 <body>
 <!-- Header with active Home link -->
