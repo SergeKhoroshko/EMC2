@@ -70,11 +70,35 @@
   <!-- ===== EXERCISES SECTION ===== -->
   <section class="workout" id="workoutSection">
     <div class="container">
-      <!-- Section header: title left, filter tabs right -->
+      <!-- Section header: title only -->
       <div class="workout-header" id="workoutHeader">
         <h2 class="workout-title" id="workoutTitle">Exercises</h2>
+      </div>
 
-        <!-- Filter tabs: Muscles | Body parts | Equipment — underline style -->
+      <!-- Controls row: breadcrumb (when category selected) + search (when category selected) + filters always visible -->
+      <div class="workout-controls" id="workoutControls">
+        <div class="workout-breadcrumb" id="workoutBreadcrumb" hidden>
+          <span class="workout-breadcrumb-title">Exercises</span>
+          <span class="breadcrumb-sep" aria-hidden="true">/</span>
+          <span class="breadcrumb-current" id="breadcrumbCurrent"></span>
+        </div>
+
+        <form class="search-form" id="searchForm" role="search" novalidate hidden>
+          <button class="search-btn" type="submit" aria-label="Submit search">
+            <svg width="16" height="16" aria-hidden="true"><use href="./img/sprite.svg#icon-search"></use></svg>
+          </button>
+          <input
+                  class="search-input"
+                  id="searchInput"
+                  type="search"
+                  name="keyword"
+                  placeholder="Search exercises…"
+                  autocomplete="off"
+                  aria-label="Search exercises by name"
+          />
+        </form>
+
+        <!-- Filter tabs: Muscles | Body parts | Equipment -->
         <ul class="filter-tabs" id="filterTabs" role="tablist" aria-label="Exercise categories">
           <li role="presentation">
             <button
@@ -101,30 +125,6 @@
             >Equipment</button>
           </li>
         </ul>
-      </div>
-
-      <!-- Breadcrumb + search — visible only when a category is selected -->
-      <div class="workout-controls" id="workoutControls" hidden>
-        <div class="workout-breadcrumb" id="workoutBreadcrumb" hidden>
-          <span class="workout-breadcrumb-title">Exercises</span>
-          <span class="breadcrumb-sep" aria-hidden="true">/</span>
-          <span class="breadcrumb-current" id="breadcrumbCurrent"></span>
-        </div>
-
-        <form class="search-form" id="searchForm" role="search" novalidate>
-          <button class="search-btn" type="submit" aria-label="Submit search">
-            <svg width="16" height="16" aria-hidden="true"><use href="./img/sprite.svg#icon-search"></use></svg>
-          </button>
-          <input
-                  class="search-input"
-                  id="searchInput"
-                  type="search"
-                  name="keyword"
-                  placeholder="Search exercises…"
-                  autocomplete="off"
-                  aria-label="Search exercises by name"
-          />
-        </form>
       </div>
 
       <!-- Two-column layout: sidebar left (25%) + main right (75%) -->
@@ -160,8 +160,8 @@
           <div class="sidebar-card sidebar-photo">
             <img
                     class="sidebar-photo-img"
-                    src="./img/sidebar-home.jpg"
-                    alt="Women doing fitness outdoors together"
+                    src="./img/sidebar-favorites.jpg"
+                    alt="Women taking a break from workout"
                     width="300" height="200"
                     loading="lazy"
             />

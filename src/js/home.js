@@ -64,7 +64,6 @@ export async function initHome() {
     }
 
     if (!state.category) {
-      workoutControls.hidden = false;
       showBreadcrumb(false);
     }
 
@@ -262,7 +261,7 @@ function renderExerciseCards(exercises) {
 /** Switch to the exercise list view for the selected category. */
 function showExercises() {
   if (workoutHeader) workoutHeader.hidden = true;
-  workoutControls.hidden = false;
+  if (searchForm) searchForm.hidden = false;
   showBreadcrumb(true);
   if (breadcrumbCurrent) breadcrumbCurrent.textContent = state.category?.name ?? '';
   loadExercises();
@@ -275,7 +274,7 @@ function showCategories() {
   state.exercisePage = 1;
   if (searchInput) searchInput.value = '';
   if (workoutHeader) workoutHeader.hidden = false;
-  workoutControls.hidden = true;
+  if (searchForm) searchForm.hidden = true;
   showBreadcrumb(false);
   loadCategories();
 }

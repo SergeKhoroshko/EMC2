@@ -146,8 +146,9 @@
   color: var(--color-text);
 }
 
-/* Breadcrumb + search row (shown when category selected) */
+/* Controls row — always visible */
 .workout-controls {
+  display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -156,8 +157,27 @@
   flex-wrap: wrap;
 }
 
-.workout-controls:not([hidden]) {
-  display: flex;
+/* On mobile: filters go to their own row at the bottom */
+@media (max-width: 767px) {
+  .workout-controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .workout-controls .filter-tabs {
+    order: 3;
+    width: 100%;
+  }
+
+  .workout-controls .workout-breadcrumb {
+    order: 1;
+  }
+
+  .workout-controls .search-form {
+    order: 2;
+    width: 100%;
+    max-width: 100%;
+  }
 }
 
 .workout-breadcrumb {
