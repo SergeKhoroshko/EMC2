@@ -12,6 +12,7 @@ export function renderFavorites() {
 
   if (favorites.length === 0) {
     grid.innerHTML = '';
+    grid.classList.remove('is-exercises');
     empty.hidden = false;
     return;
   }
@@ -20,40 +21,53 @@ export function renderFavorites() {
   grid.classList.add('is-exercises');
 
   grid.innerHTML = favorites.map(ex => `
-    <li class="exercise-card">
-      <!-- Row 1: WORKOUT pill + rating LEFT, trash + Start → RIGHT -->
+    <li class="exercise-card fav-card">
+      <!-- Row 1: WORKOUT badge + trash icon LEFT, Start → RIGHT -->
       <div class="exercise-card-top">
         <div class="exercise-card-top-left">
-          <span class="exercise-card-rating">
-            ${Number(ex.rating ?? 0).toFixed(1)}
-            <svg class="exercise-card-star" width="13" height="13" aria-hidden="true">
-              <use href="./img/sprite.svg#icon-star"></use>
+          <span class="exercise-card-badge">WORKOUT</span>
+          <button
+            class="fav-card-remove"
+            data-remove="${escHtml(ex._id)}"
+            type="button"
+            aria-label="Remove ${escHtml(ex.name)} from favorites"
+          >
+            <svg width="16" height="16" aria-hidden="true">
+              <use href="./img/sprite.svg#icon-trash"></use>
             </svg>
-          </span>
-        </div>
-        <div style="display:flex;gap:8px;align-items:center">
-          <button class="exercise-card-remove" data-remove="${escHtml(ex._id)}"
-            type="button" aria-label="Remove ${escHtml(ex.name)} from favorites">
-            <svg width="16" height="16" aria-hidden="true"><use href="./img/sprite.svg#icon-trash"></use></svg>
-          </button>
-          <button class="exercise-card-start" data-id="${escHtml(ex._id)}" type="button"
-            aria-label="View ${escHtml(ex.name)}">
-            Start &rarr;
           </button>
         </div>
+        <button
+          class="exercise-card-start"
+          data-id="${escHtml(ex._id)}"
+          type="button"
+          aria-label="View details of ${escHtml(ex.name)}"
+        >
+          Start &rarr;
+        </button>
       </div>
-      <!-- Row 2: name first, category below -->
-      <div class="exercise-card-body">
+
+      <!-- Row 2: runner icon + exercise name -->
+      <div class="fav-card-name-row">
+        <svg class="fav-card-icon" width="24" height="24" aria-hidden="true">
+          <use href="./img/sprite.svg#icon-runner"></use>
+        </svg>
         <h3 class="exercise-card-name">${escHtml(ex.name)}</h3>
-        <p class="exercise-card-category">${escHtml(ex.bodyPart || ex.target || '')}</p>
       </div>
+
+      <!-- Row 3: meta info -->
+      <p class="fav-card-meta">
+        <span>Burned calories: <strong>${escHtml(String(ex.burnedCalories ?? ex.calories ?? '—'))}</strong> / 3 min</span>
+        <span>Body part: <strong>${escHtml(capitalize(ex.bodyPart ?? '—'))}</strong></span>
+        <span>Target: <strong>${escHtml(capitalize(ex.target ?? '—'))}</strong></span>
+      </p>
     </li>
   `).join('');
 
   const map = new Map(favorites.map(ex => [ex._id, ex]));
 
   // Remove buttons
-  grid.querySelectorAll('.exercise-card-remove').forEach(btn => {
+  grid.querySelectorAll('.fav-card-remove').forEach(btn => {
     btn.addEventListener('click', () => {
       removeFavorite(btn.dataset.remove);
       renderFavorites();
@@ -76,4 +90,10 @@ function escHtml(str) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+}
+
+/** Capitalize first letter. */
+function capitalize(str) {
+  if (!str) return str;
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }

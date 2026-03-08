@@ -1,24 +1,21 @@
 /* ===== Favorites page ===== */
 .favorites-section {
   padding: 48px 0 56px;
-  background-color: var(--color-bg); /* explicit gray — body is now white */
+  background-color: var(--color-bg);
 }
 
-/* Mirror the home workout-layout: sidebar left + main right */
+/* Two-column layout: sidebar LEFT + main RIGHT (mirrors home) */
 .favorites-inner {
   display: flex;
   flex-direction: column;
   gap: 32px;
 }
 
-.favorites-main {
-  order: 0; /* main content first on mobile */
-}
+/* Mobile: main first, sidebar below */
+.favorites-main  { order: 0; }
+.favorites-sidebar { order: 1; }
 
-.favorites-sidebar {
-  order: 1; /* sidebar below on mobile */
-}
-
+/* ── Title ── */
 .favorites-title {
   font-size: 32px;
   font-weight: 700;
@@ -26,73 +23,151 @@
   margin-bottom: 28px;
 }
 
+/* ══════════════════════════════════════════
+   FAV CARD  (matches Figma layout exactly)
+══════════════════════════════════════════ */
+.fav-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+/* Row 1: badge + trash LEFT  |  Start → RIGHT */
+.fav-card .exercise-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.fav-card .exercise-card-top-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Trash icon button */
+.fav-card-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  transition: color 0.2s;
+  flex-shrink: 0;
+}
+
+.fav-card-remove:hover,
+.fav-card-remove:focus-visible {
+  color: #e74c3c;
+}
+
+/* Row 2: runner icon + name */
+.fav-card-name-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fav-card-icon {
+  flex-shrink: 0;
+  color: var(--color-text);
+}
+
+.fav-card .exercise-card-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* Row 3: meta line */
+.fav-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.fav-card-meta strong {
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+/* ══════════════════════════════════════════
+   EMPTY STATE  (Favorites_not_found Figma)
+══════════════════════════════════════════ */
 .favorites-empty {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  min-height: 280px;
+  gap: 16px;
+  min-height: 320px;
   text-align: center;
   padding: 40px 20px;
 }
 
-.favorites-empty-icon {
-  margin-bottom: 8px;
-}
-
-.favorites-empty-heading {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--color-text);
-}
+.favorites-empty-icon { margin-bottom: 4px; }
 
 .favorites-empty-text {
-  font-size: 15px;
+  font-size: 14px;
   color: var(--color-text-muted);
   line-height: 1.6;
+  max-width: 480px;
 }
 
-.favorites-empty-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 8px;
-  padding: 12px 28px;
-  background-color: var(--color-accent);
-  color: #fff;
-  font-size: 14px;
-  font-weight: 600;
-  border-radius: 30px;
-  text-decoration: none;
-  transition: background-color 0.2s ease, transform 0.15s ease;
-}
-
-.favorites-empty-btn:hover,
-.favorites-empty-btn:focus-visible {
-  background-color: var(--color-accent-hover);
-  transform: translateY(-1px);
-}
-
-/* ===== Tablet: 768px+ ===== */
+/* ══════════════════════════════════════════
+   TABLET  768px+
+══════════════════════════════════════════ */
 @media only screen and (min-width: 768px) {
-  .favorites-title {
-    font-size: 40px;
-  }
+  .favorites-title { font-size: 40px; }
 
+  /* Sidebar: cards go side by side */
   .favorites-sidebar {
     flex-direction: row;
   }
+
+  /* 2-col exercise grid */
+  #favoritesGrid.is-exercises {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 16px;
+    row-gap: 16px;
+  }
+
+  .fav-card-meta {
+    font-size: 13px;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 }
 
-/* ===== Desktop: 1200px+ ===== */
+/* ══════════════════════════════════════════
+   DESKTOP  1200px+
+══════════════════════════════════════════ */
 @media only screen and (min-width: 1200px) {
+  .favorites-section { padding: 64px 0 80px; }
+
   .favorites-inner {
     flex-direction: row;
     align-items: flex-start;
     gap: 32px;
   }
 
+  /* Sidebar LEFT, content RIGHT */
   .favorites-sidebar {
     display: flex;
     flex-direction: column;
@@ -104,10 +179,14 @@
 
   .favorites-main {
     flex: 1;
+    min-width: 0;
     order: 1;
   }
 }
-/* ===== Full Desktop: 1440px+ — restore exact Figma sidebar width ===== */
+
+/* ══════════════════════════════════════════
+   LARGE DESKTOP  1440px+
+══════════════════════════════════════════ */
 @media only screen and (min-width: 1440px) {
   .favorites-sidebar {
     flex: 0 0 444px;
