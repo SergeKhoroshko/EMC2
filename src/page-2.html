@@ -10,7 +10,86 @@
   </head>
   <body>
     <!-- Header with active Favorites link -->
-    <load src="./partials/header.html" favorites-active="active">
+    <!-- Site header: SVG logo, dark pill nav, social icons, mobile burger -->
+<header class="header">
+  <div class="container">
+    <div class="header-inner">
+      <!-- SVG logo -->
+      <a class="header-logo" href="./index.html" aria-label="Your Energy — home">
+        <img src="./img/logo.svg" alt="Your Energy" width="132" height="24">
+      </a>
+
+      <!-- Desktop navigation: dark pill with white active pill inside -->
+      <nav class="header-nav" aria-label="Main navigation">
+        <div class="header-nav-pill">
+          <a class="header-nav-link " href="./index.html">Home</a>
+          <a class="header-nav-link active" href="./page-2.html">Favorites</a>
+        </div>
+      </nav>
+
+      <!-- Social links (desktop) -->
+      <ul class="header-social" aria-label="Social networks">
+        <li>
+          <a class="header-social-link" href="https://www.facebook.com/goITclub/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <svg width="20" height="20" aria-hidden="true"><use href="./img/sprite.svg#icon-facebook"></use></svg>
+          </a>
+        </li>
+        <li>
+          <a class="header-social-link" href="https://www.instagram.com/goitclub/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg width="20" height="20" aria-hidden="true"><use href="./img/sprite.svg#icon-instagram"></use></svg>
+          </a>
+        </li>
+        <li>
+          <a class="header-social-link" href="https://www.youtube.com/c/GoIT" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+            <svg width="20" height="20" aria-hidden="true"><use href="./img/sprite.svg#icon-youtube"></use></svg>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Burger button (mobile only) -->
+      <button class="burger-btn" id="burgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        &#9776;
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu — fullscreen dark overlay -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <div class="mobile-menu-inner">
+      <!-- X close button top right -->
+      <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
+        &times;
+      </button>
+
+      <!-- Links centered vertically -->
+      <nav class="mobile-nav" aria-label="Mobile navigation">
+        <ul class="mobile-nav-list">
+          <li><a class="mobile-nav-link " href="./index.html">Home</a></li>
+          <li><a class="mobile-nav-link active" href="./page-2.html">Favorites</a></li>
+        </ul>
+      </nav>
+
+      <!-- Social icons bottom center -->
+      <ul class="mobile-social" aria-label="Social networks">
+        <li>
+          <a class="mobile-social-link" href="https://www.facebook.com/goITclub/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <svg width="24" height="24" aria-hidden="true"><use href="./img/sprite.svg#icon-facebook"></use></svg>
+          </a>
+        </li>
+        <li>
+          <a class="mobile-social-link" href="https://www.instagram.com/goitclub/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg width="24" height="24" aria-hidden="true"><use href="./img/sprite.svg#icon-instagram"></use></svg>
+          </a>
+        </li>
+        <li>
+          <a class="mobile-social-link" href="https://www.youtube.com/c/GoIT" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+            <svg width="24" height="24" aria-hidden="true"><use href="./img/sprite.svg#icon-youtube"></use></svg>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
 
     <main>
       <!-- ===== FAVORITES SECTION ===== -->
@@ -83,7 +162,70 @@
       </section>
     </main>
 
-    <load src="./partials/footer.html">
+    <!-- Site footer: dark bg, 3-column layout, subscription form -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <!-- Left: SVG logo + social icons -->
+      <div class="footer-brand">
+        <a class="footer-logo" href="./index.html" aria-label="Your Energy — home">
+          <img src="./img/logo-white.svg" alt="Your Energy" width="132" height="24">
+        </a>
+        <ul class="footer-social" aria-label="Social networks">
+          <li>
+            <a class="footer-social-link" href="https://www.facebook.com/goITclub/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <svg width="20" height="20" aria-hidden="true"><use href="./img/sprite.svg#icon-facebook"></use></svg>
+            </a>
+          </li>
+          <li>
+            <a class="footer-social-link" href="https://www.instagram.com/goitclub/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg width="20" height="20" aria-hidden="true"><use href="./img/sprite.svg#icon-instagram"></use></svg>
+            </a>
+          </li>
+          <li>
+            <a class="footer-social-link" href="https://www.youtube.com/c/GoIT" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+              <svg width="20" height="20" aria-hidden="true"><use href="./img/sprite.svg#icon-youtube"></use></svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Center: tagline with italic "body" -->
+      <div class="footer-center">
+        <p class="footer-tagline">
+          Transforming your<br><em>body</em> shape with us
+        </p>
+      </div>
+
+      <!-- Right: subscription form -->
+      <div class="footer-right">
+        <p class="footer-subscribe-label">Subscribe and learn about new exercises!</p>
+        <form class="subscribe-form" id="subscribeForm" novalidate>
+          <div class="subscribe-row">
+            <input
+              class="subscribe-input"
+              id="subscribeEmail"
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              autocomplete="email"
+              required
+           >
+            <button class="subscribe-btn" type="submit">Send</button>
+          </div>
+          <p class="subscribe-msg" id="subscribeMsg" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+
+    <!-- Footer bottom bar -->
+    <div class="footer-bottom">
+      <p class="footer-copy">Your Energy. All rights reserved.</p>
+      <p class="footer-copy">Privacy Policy / Terms of Service</p>
+      <p class="footer-copy">&copy;2023</p>
+    </div>
+  </div>
+</footer>
 
     <!-- ===== EXERCISE DETAIL MODAL ===== -->
     <div class="modal-backdrop" id="exerciseModalBackdrop" aria-modal="true" role="dialog" aria-labelledby="exModalTitle" hidden>
