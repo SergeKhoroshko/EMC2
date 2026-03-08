@@ -147,45 +147,122 @@
   flex-shrink: 0;
 }
 
-/* Controls row — always visible, title/breadcrumb left, search+filters right */
+/* ── Controls row ──────────────────────────────────────────────────────────── */
+
+/*
+  HTML order: [breadcrumb/title]  [search]  [filters]
+
+  DESKTOP (≥1024px) — one row:
+    [Exercises/Waist] ............ [Search] [Filters]
+    margin-left:auto on search pushes it right; filters follows immediately
+
+  TABLET (768–1023px) — two rows:
+    row 1: [Exercises/Waist] ............. [Filters]
+    row 2: [Search]   (left, under Exercises)
+    via: breadcrumb order:1, filters order:2 + margin-left:auto,
+         search order:3 + flex-basis:100% (wraps to own row) + margin-left:0
+
+  MOBILE (<768px) — three rows:
+    row 1: [Exercises/Waist]   left
+    row 2:      [Search]       center
+    row 3: [Filters]           left
+*/
+
+/* DESKTOP ≥1024px */
 .workout-controls {
   display: flex;
-  flex-direction: row;
+  flex-wrap: nowrap;
   align-items: center;
-  justify-content: space-between;
   gap: 16px;
   margin-bottom: 24px;
-  flex-wrap: wrap;
 }
 
-/* When breadcrumb or search visible — push filters to right */
-.workout-controls:has(.workout-breadcrumb:not([hidden])),
-.workout-controls:has(.search-form:not([hidden])) {
-  justify-content: space-between;
+.workout-controls .workout-title,
+.workout-controls .workout-breadcrumb {
+  flex: 0 0 auto;
 }
 
-/* On mobile: filters go to their own row at the bottom */
-@media (max-width: 767px) {
+.workout-controls .search-form {
+  flex: 0 0 auto;
+  margin-left: auto;
+}
+
+.workout-controls .filter-tabs {
+  flex: 0 0 auto;
+}
+
+/* categories view: search hidden → filters go far right */
+.workout-controls .search-form[hidden] ~ .filter-tabs {
+  margin-left: auto;
+}
+
+/* TABLET 768–1023px */
+@media (min-width: 768px) and (max-width: 1023px) {
   .workout-controls {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-wrap: wrap;
   }
 
-  .workout-controls .filter-tabs {
-    order: 3;
-    width: 100%;
-  }
-
+  /* row 1: breadcrumb/title alone, full width */
+  .workout-controls .workout-title,
   .workout-controls .workout-breadcrumb {
     order: 1;
+    flex: 0 0 100%;
   }
 
+  /* row 2 left: search */
   .workout-controls .search-form {
     order: 2;
-    width: 100%;
-    max-width: 100%;
+    flex: 0 0 auto;
+    margin-left: 0;
+  }
+
+  /* row 2 right: filters */
+  .workout-controls .filter-tabs {
+    order: 3;
+    flex: 0 0 auto;
+    margin-left: auto;
+  }
+
+  /* categories view: search hidden, filters alone on row 2 — keep left */
+  .workout-controls .search-form[hidden] ~ .filter-tabs {
+    margin-left: 0;
   }
 }
+
+/* MOBILE <768px */
+@media (max-width: 767px) {
+  .workout-controls {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* row 1: breadcrumb — full width, left */
+  .workout-controls .workout-title,
+  .workout-controls .workout-breadcrumb {
+    order: 1;
+    flex: 0 0 100%;
+  }
+
+  /* row 2: search — full width, content centered */
+  .workout-controls .search-form {
+    order: 2;
+    flex: 0 0 100%;
+    margin-left: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* row 3: filters — left */
+  .workout-controls .filter-tabs {
+    order: 3;
+    margin-left: 0;
+  }
+
+  .workout-controls .search-form[hidden] ~ .filter-tabs {
+    margin-left: 0;
+  }
+}
+
 
 .workout-breadcrumb {
   align-items: center;
