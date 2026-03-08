@@ -87,37 +87,37 @@ body.modal-open {
    EXERCISE MODAL — IMAGE PANEL
 
    MOBILE (<768px):
-     - ПССУ = весь медиа-блок, светлый, скруглены верхние углы
-     - Нет тёмного фона снаружи
+     - Тёмный блок с padding 20px, ПССУ белый внутри (как на desktop)
+     - Тёмный фон виден со всех сторон вокруг ПССУ
 
    TABLET/DESKTOP (≥768px):
-     - Тёмный левый столбец
-     - Внутри: ПССУ — БЕЛЫЙ квадрат (aspect-ratio 1/1), выровнен по верху
-       на том же уровне что начинается заголовок справа (padding-top = 28px)
-     - Снизу от ПССУ — тёмное пространство (это нормально по макету)
+     - Тёмный левый столбец, padding 28px 24px
+     - ПССУ белый, aspect-ratio 270/259, прижат к верху
    ===================================================== */
 
-/* MOBILE: медиа-блок и есть светлый прямоугольник */
+/* MOBILE: тёмный блок, белый ПССУ внутри с отступами */
 .ex-modal-media {
   width: 100%;
-  height: 240px;
   flex-shrink: 0;
-  background-color: #ffffff;
+  background-color: var(--color-dark);
   border-radius: 16px 16px 0 0;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ex-modal-img-wrap {
+  width: 100%;
+  flex: 0 0 auto;
+  aspect-ratio: 270 / 259;
+  background-color: #ffffff;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-}
-
-/* на мобильном img-wrap прозрачный — просто центрирует */
-.ex-modal-img-wrap {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
 }
 
 .ex-modal-gif {
