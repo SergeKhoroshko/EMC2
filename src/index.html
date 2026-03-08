@@ -103,6 +103,7 @@
               class="filter-tab active"
               role="tab"
               aria-selected="true"
+              aria-controls="cardsPanel"
               data-filter="Muscles"
             >Muscles</button>
           </li>
@@ -111,6 +112,7 @@
               class="filter-tab"
               role="tab"
               aria-selected="false"
+              aria-controls="cardsPanel"
               data-filter="Body parts"
             >Body parts</button>
           </li>
@@ -119,6 +121,7 @@
               class="filter-tab"
               role="tab"
               aria-selected="false"
+              aria-controls="cardsPanel"
               data-filter="Equipment"
             >Equipment</button>
           </li>
@@ -198,18 +201,18 @@
     <!-- GIF / image: dark panel → inner light rounded rect → image -->
     <div class="ex-modal-media">
       <div class="ex-modal-img-wrap">
-        <img class="ex-modal-gif" id="exModalGif" alt="" loading="lazy" />
+        <img class="ex-modal-gif" id="exModalGif" src="" alt="" loading="lazy" />
       </div>
     </div>
 
     <div class="ex-modal-body">
       <!-- Name -->
-      <h2 class="ex-modal-title" id="exModalTitle"></h2>
+      <h2 class="ex-modal-title" id="exModalTitle" aria-label="Exercise name"></h2>
 
       <!-- Rating: number + stars -->
       <div class="ex-modal-rating-row">
         <span class="ex-modal-rating-val" id="exModalRating"></span>
-        <span class="ex-modal-stars" id="exModalStars" aria-label="stars"></span>
+        <span class="ex-modal-stars" id="exModalStars" role="img" aria-label="Exercise rating stars"></span>
       </div>
 
       <hr class="ex-modal-divider" />
