@@ -1,126 +1,98 @@
-# Your Energy
+# Your Energy 💪
 
-A fitness exercise web application that helps you discover, explore, and save workout exercises by muscle group, body part, or equipment type.
+A single-page fitness web application for discovering, filtering, and saving exercises. Built as a course project using Vanilla JavaScript.
 
-🔗 **Live demo:** [https://sergekhoroshko.github.io/EMC2/](https://sergekhoroshko.github.io/EMC2/)
-
----
-
-## Features
-
-- **Filter tabs** — browse exercises by Muscles, Body parts, or Equipment
-- **Category cards** — visual grid of filter categories with images
-- **Exercise cards** — name, rating, body part, target muscle, burned calories, duration
-- **Exercise modal** — animated GIF preview, full details, add/remove from Favorites, give a rating
-- **Rating modal** — interactive star selector, email validation, submits to the API
-- **Search** — find exercises by keyword within a selected category
-- **Pagination** — smooth page navigation with ellipsis for large result sets
-- **Quote of the day** — motivational quote fetched from the API and cached in localStorage for the day
-- **Favorites page** — saved exercises stored in localStorage, removable at any time
-- **Email subscription** — subscribe to exercise updates via the footer form
-- **Burger menu** — responsive mobile navigation with overlay
-- **Responsive design** — mobile (320px+), tablet (768px+), desktop (1200px+)
-- **Accessible markup** — ARIA roles, labels, live regions, keyboard navigation
+**🌐 Live Demo → [sergekhoroshko.github.io/EMC2](https://sergekhoroshko.github.io/EMC2/)**
 
 ---
 
-## Technologies
+## About
 
-| Tool | Purpose |
-| --- | --- |
-| Vanilla JavaScript (ES Modules) | All application logic, no frameworks |
-| [Vite 5](https://vitejs.dev/) | Dev server, bundler, HTML partial injection |
-| CSS custom properties | Dark-theme design system, responsive layout |
-| vite-plugin-html-inject | Reusable HTML partials |
-| localStorage | Favorites cache and daily quote cache |
-| Your Energy REST API | Exercises, filters, quotes, subscriptions |
+Your Energy helps users find exercises by muscle group, body part, or equipment. Each exercise card shows calories, rating, and target muscles. Users can save favourites to localStorage, rate exercises, and subscribe to the newsletter.
+
+**Key features:**
+- Filter exercises by Muscles / Body parts / Equipment
+- Search exercises by keyword
+- Exercise detail modal with video preview
+- Save & manage favourite exercises (localStorage)
+- Daily motivational quote (cached in localStorage)
+- Email newsletter subscription
+- Server-side pagination
+- Fully responsive: mobile 375px · tablet 768px · desktop 1440px
 
 ---
 
-## Getting started
+## Tech Stack
 
-### Prerequisites
+- Vanilla JavaScript (ES Modules)
+- Vite — build tool & dev server
+- CSS (custom, no frameworks)
+- REST API: [your-energy.b.goit.study](https://your-energy.b.goit.study/api-docs/)
+- Deployed via GitHub Pages + GitHub Actions
 
-- Node.js 18+
-- npm 9+
+---
 
-### Install dependencies
+## Getting Started
+
+**Prerequisites:** Node.js 18+
 
 ```bash
+# 1. Clone the repository
+git clone https://github.com/SergeKhoroshko/EMC2.git
+cd EMC2
+
+# 2. Install dependencies
 npm install
-```
 
-### Run locally
-
-```bash
+# 3. Start development server
 npm run dev
-```
+# → http://localhost:5173
 
-The dev server starts at `http://localhost:5173/`. Changes to HTML, CSS, and JS hot-reload automatically.
-
-### Build for production
-
-```bash
+# 4. Build for production
 npm run build
-```
 
-Output is written to the `dist/` folder. The build uses `/vanilla-app-template/` as the base path (matches the GitHub Pages deployment URL).
-
-### Preview the production build
-
-```bash
+# 5. Preview production build
 npm run preview
 ```
 
 ---
 
-## Project structure
+## Project Structure
 
 ```
-src/
-├── index.html          # Home page
-├── page-2.html         # Favorites page
-├── main.js             # Home page entry point
-├── page-2.js           # Favorites page entry point
-├── partials/
-│   ├── header.html     # Shared header (logo, nav, burger, socials)
-│   └── footer.html     # Shared footer (logo, subscribe form)
-├── css/
-│   ├── styles.css      # Imports all CSS partials
-│   ├── base.css        # CSS variables, global tokens
-│   ├── header.css
-│   ├── hero.css
-│   ├── filters.css
-│   ├── cards.css
-│   ├── modal.css
-│   ├── pagination.css
-│   └── footer.css
-├── js/
-│   ├── api.js          # All API calls (fetch wrapper)
-│   ├── storage.js      # localStorage helpers (favorites + quote cache)
-│   ├── home.js         # Home page logic (categories, exercises, search)
-│   ├── favorites.js    # Favorites page render
-│   ├── exercise-modal.js
-│   ├── rating-modal.js
-│   ├── modal.js        # Generic open/close helpers
-│   ├── pagination.js
-│   ├── quote.js
-│   ├── header.js       # Mobile burger menu
-│   └── footer.js       # Subscription form
-└── img/
-    └── sprite.svg      # SVG icon sprite
+EMC2/
+├── src/
+│   ├── css/          # Stylesheets (modular, per component)
+│   ├── img/          # Optimised images (WebP)
+│   ├── js/           # JavaScript modules
+│   └── index.html    # Home page
+│   └── page-2.html   # Favourites page
+├── public/
+├── vite.config.js
+└── package.json
 ```
+
+---
+
+## Pages
+
+| Page | URL | Description |
+|------|-----|-------------|
+| Home | `/` | Hero, filters, exercise catalogue, quote of the day |
+| Favourites | `/page-2.html` | Saved exercises, quote of the day |
 
 ---
 
 ## API
 
-Base URL: `https://your-energy.b.goit.study/api`
+All data is fetched from the public REST API:  
+`https://your-energy.b.goit.study/api-docs/`
 
-| Endpoint                  | Method | Description                                   |
-| ------------------------- | ------ | --------------------------------------------- |
-| `/quote`                  | GET    | Daily motivational quote                      |
-| `/filters`                | GET    | Category list (`filter`, `page`, `limit`)     |
-| `/exercises`              | GET    | Exercise list with filters and keyword search |
-| `/exercises/{id}/rating`  | PATCH  | Submit a rating `{rate, email, review}`       |
-| `/subscription`           | POST   | Subscribe an email to updates                 |
+| Endpoint | Description |
+|----------|-------------|
+| `GET /api/quote` | Quote of the day |
+| `GET /api/filters` | Filter categories |
+| `GET /api/exercises` | Exercise list (with pagination) |
+| `GET /api/exercises/:id` | Exercise details |
+| `PATCH /api/exercises/:id/rating` | Submit rating |
+| `POST /api/subscription` | Email subscription |
